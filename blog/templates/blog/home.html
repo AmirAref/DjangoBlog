@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .post{
+        background-color: lightyellow;
+        margin: 20px 10px;
+        padding: 10px;
+        width : 650px;
+        height: 500px;
+        border: 5px solid rgb(155, 21, 160);
+        border-radius: 20px;
+        border-collapse: collapse;
+    }
+    .post .thumbnail{
+        text-align: center;
+        width: 600px;
+        max-height: 300px;
+        border-radius: 20px;
+        margin: 10px;
+    }
+    .post p{
+        max-width: 600px;
+        overflow: hidden;
+    }
+    .post p, h2, small {
+        margin: 10px 18px;
+    }
+    
+</style>
+</head>
+
+<body>
+<h1>Recent Posts :</h1>
+<hr>
+{% for post in posts%}
+    <article class="post">
+        <img class="thumbnail" src="{{post.thumbnail.url}}" alt="{{post.title}}">
+        <h2><a href="{% url 'blog:detail' post.slug %}" target="blank">{{post.title}}</a></h2>
+        <small>{{post.publish}}</small>
+        <p>{{post.description}}</p>
+    </article>
+{% endfor %}
+
+
+    
+</body>
+
+</html>

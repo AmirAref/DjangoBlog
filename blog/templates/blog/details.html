@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body{
+        background-color: lightyellow;
+    }
+    .post {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        max-width: 800px;
+        text-align: center;
+        padding: 20px;
+        
+        border: 1px solid rgb(126, 126, 126);
+        border-radius: 20px;
+        background-image: linear-gradient(to bottom right, rgb(170, 212, 252), rgb(245, 155, 174));
+        /* background-color: rgb(236, 104, 133); */
+    }
+    
+    .thumbnail{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin: 20px auto 20px auto;
+        max-width: 750px;
+        max-height: 500px;
+        border-radius: 20px;
+    }
+    .title{
+        font-size: 50px;
+        margin-bottom: 6px;
+    }
+    small{
+        font-size: 15px;
+        margin-top: 0px;
+        display: block;
+    }
+    .description{
+        font-size: 20px;
+        margin: 20px;
+        text-align: left;
+    }
+    
+
+</style>
+</head>
+
+<body>
+
+<section class="post">
+    <h1 class="title">{{post.title}}</h1>
+    <small>{{post.publish}}</small>
+    <img class="thumbnail" src="{{post.thumbnail.url}}" alt="{{post.title}}">
+    <p class="description">{{post.description}}</p>
+</section>
+
+</body>
+
+</html>
