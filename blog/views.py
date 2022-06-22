@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from .models import Post
 
 
@@ -12,5 +11,7 @@ def home(request):
 
 
 def artcile_detail(request, slug):
-    contex = {'post' : Post.objects.get(slug=slug)}
+    contex = {
+        'post' : get_object_or_404(Post, slug=slug, status='p')
+        }
     return render(request, 'blog/details.html', contex)
