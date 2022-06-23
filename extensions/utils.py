@@ -1,6 +1,10 @@
+from time import time
 from . import jalali
+from django.utils import timezone
 
 def jalali_convertor(gre_date):
+    # convert the timezone to local
+    gre_date = timezone.localtime(gre_date)
     # convert month number to word
     month_words = ('فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند',)
     #  convert the gregorian date to jalali date

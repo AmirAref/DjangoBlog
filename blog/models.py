@@ -25,6 +25,8 @@ class Post(models.Model):
     
     def jpublish(self):
         return jalali_convertor(self.publish)
+    
+    jpublish.short_description = publish.verbose_name
 
     def __str__(self) -> str:
         return self.title
