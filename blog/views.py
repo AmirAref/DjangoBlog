@@ -5,7 +5,7 @@ from .models import Post
 # Create your views here.
 def home(request):
     contex = {
-        'posts' : Post.objects.filter(status='p').order_by('-publish'),
+        'posts' : Post.objects.filter(status='p'),
     }
     return render(request, 'blog/home.html', contex)
 

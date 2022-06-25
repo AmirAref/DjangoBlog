@@ -35,6 +35,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'پست'
         verbose_name_plural = 'پست ها'
+        ordering = ['-publish']
     
     def jpublish(self):
         return jalali_convertor(self.publish)
