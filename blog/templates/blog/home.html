@@ -33,6 +33,11 @@
                                 <a target="blank" href="#!">Start Bootstrap</a> -->
                                 {{post.jpublish}}
                             </p>
+                            <div>
+                                {% for cat in post.category.all %}
+                                    <a href="#">#{{cat.title}}</a>
+                                {% endfor %}
+                            </div>
                         </div>
                     {% endfor %}
                     <!-- Divider-->
