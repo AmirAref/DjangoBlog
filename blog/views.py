@@ -6,7 +6,6 @@ from .models import Category, Post
 def home(request):
     contex = {
         'posts' : Post.objects.published(),
-        'categories' : Category.objects.filter(status=True),
     }
     return render(request, 'blog/home.html', contex)
 
