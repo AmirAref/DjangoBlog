@@ -16,3 +16,9 @@ def artcile_detail(request, slug):
         'post' : get_object_or_404(Post, slug=slug, status='p')
         }
     return render(request, 'blog/details.html', contex)
+
+def category(request, slug):
+    contex = {
+        'category' : get_object_or_404(Category, slug=slug, status=True)
+        }
+    return render(request, 'blog/category.html', contex)

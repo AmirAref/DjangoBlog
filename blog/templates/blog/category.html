@@ -1,6 +1,8 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
+{% block titile %} - {{category.title}}{% endblock %}
+
 {% block main %}
 
         <!-- Page Header-->
@@ -9,8 +11,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>وبلاگ من</h1>
-                            <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
+                            <h1>{{ category.title }}</h1>
                         </div>
                     </div>
                 </div>
@@ -22,7 +23,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
-                    {% for post in posts %}
+                    {% for post in category.posts.all %}
                         <div class="post-preview">
                             <a target="balnk" href="{% url 'blog:detail' post.slug %}">
                                 <h2 class="post-title">{{post.title}}</h2>
