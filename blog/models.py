@@ -3,6 +3,13 @@ from django.db import models
 from django.utils import timezone
 from extensions.utils import jalali_convertor
 
+# create your managers here
+class PostManager(models.Manager):
+    def published(self):
+        # only published posts
+        return self.filter(status='p')
+
+# create your models here
 class Category(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان دسته‌بندی")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="آدرس دسته‌بندی")
@@ -37,10 +44,18 @@ class Post(models.Model):
         verbose_name_plural = 'پست ها'
         ordering = ['-publish']
 
+    # return jalali version of published date
     def jpublish(self):
         return jalali_convertor(self.publish)
 
     jpublish.short_description = publish.verbose_name
 
+    # get only active categories
+    def active_category(self):
+        return self.category.filter(status=True)
+
     def __str__(self) -> str:
         return self.title
+
+    # change objects Manager
+    objects = PostManager()

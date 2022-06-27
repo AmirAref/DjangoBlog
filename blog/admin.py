@@ -19,10 +19,10 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug' : ('title', )}
     ordering = ('status', '-publish')
-    
+
     def caregoty_to_str(self, obj):
         # convert the categories list to the string
-        return ", ".join(map(lambda x : x.title, obj.category.all() ))
+        return ", ".join(map(lambda x : x.title, obj.active_category() ))
     caregoty_to_str.short_description = "دسته بندی"
 
 
