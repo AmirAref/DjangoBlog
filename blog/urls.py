@@ -4,8 +4,9 @@ from .views import home, artcile_detail, category
 app_name = 'blog'
 urlpatterns = [
     path('', home, name='home'),
-    re_path(r'article/(?P<slug>[-\w]+)', artcile_detail, name="detail"),
-    re_path(r'category/(?P<slug>[-\w]+)', category, name="category"),
+    path('page/<int:page>', home, name="home"),
+    path('article/<slug:slug>', artcile_detail, name="detail"),
+    path('category/<slug:slug>', category, name="category"),
 ]
 
 from django.conf import settings

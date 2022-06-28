@@ -43,7 +43,14 @@
                     <!-- Divider-->
                     <hr class="my-4" />
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4 pager-button"><a class="btn btn-primary text-uppercase" href="#!">پست های قدیمی &larr;</a></div>
+                    <div class="d-flex justify-content-end mb-4 pager-button">
+                        {% if posts.has_previous %}
+                            <a class="btn btn-primary text-uppercase ms-3" href="{% url 'blog:home' posts.previous_page_number %}">پست های جدید &rarr;</a>
+                        {% endif %}
+                        {% if posts.has_next %}
+                            <a class="btn btn-primary text-uppercase" href="{% url 'blog:home' posts.next_page_number %}">پست های قدیمی &larr;</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

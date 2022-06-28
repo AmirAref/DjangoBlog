@@ -1,11 +1,17 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Post
 
 
 # Create your views here.
-def home(request):
+def home(request, page=1):
+    # make paginator object
+    posts_list = Post.objects.published()
+    paginator = Paginator(posts_list, 6)
+    # get and display the specific page object
+    page_object = paginator.get_page(page)
     contex = {
-        'posts' : Post.objects.published(),
+        'posts' : page_object,
     }
     return render(request, 'blog/home.html', contex)
 
