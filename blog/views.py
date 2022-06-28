@@ -22,8 +22,16 @@ def artcile_detail(request, slug):
         }
     return render(request, 'blog/details.html', contex)
 
-def category(request, slug):
+def category(request, slug, page=1):
+    # variables
+    category = get_object_or_404(Category, slug=slug, status=True)
+    posts_list = category.posts.published()
+    # make paginator object
+    paginator = Paginator(posts_list, 6)
+    # get and display the specific page object
+    page_object = paginator.get_page(page)
     contex = {
-        'category' : get_object_or_404(Category, slug=slug, status=True)
+        'category' : category,
+        'posts' : page_object,
         }
     return render(request, 'blog/category.html', contex)
