@@ -1,0 +1,9 @@
+<ul class="navbar-nav ms-auto py-4 py-lg-0 submenu">
+	{% for cat in cat.children.active  %}
+		<li class="nav-item dropdown">
+			<a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:category' cat.slug %}">{{cat.title}}</a>
+			<!--include loop for submenus-->
+			{% include 'blog/partial/category_children_loop.html' %}
+		</li>
+	{% endfor %}
+</ul>

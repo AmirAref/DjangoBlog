@@ -9,6 +9,12 @@ class PostManager(models.Manager):
         # only published posts
         return self.filter(status='p')
 
+class CategoryManager(models.Manager):
+    def active(self):
+        # display only active categories
+        return self.filter(status=True)
+
+
 # create your models here
 class Category(models.Model):
     parent = models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.SET_NULL, related_name='children', verbose_name='دسته‌بندی مادر')
@@ -24,6 +30,9 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    # change objects Manager
+    objects = CategoryManager()
 
 class Post(models.Model):
     STATUS_CHOICES = (

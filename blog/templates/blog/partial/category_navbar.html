@@ -1,3 +1,12 @@
 {% for cat in categories  %}
-	<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:category' cat.slug %}">{{cat.title}}</a></li>
+	{% if cat.parent == None %}
+		<!--main category-->
+		<li class="nav-item menu dropdown">
+			<a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:category' cat.slug %}">{{cat.title}}</a>
+		{% if cat.children.active %}
+			<!--include the submenus-->
+			{% include 'blog/partial/category_children_loop.html' %}
+		{% endif %}
+		</li>
+	{% endif %}
 {% endfor %}

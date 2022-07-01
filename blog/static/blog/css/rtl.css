@@ -21,3 +21,76 @@ body{
 .pager-button {
     float: left !important;
 }
+
+.menu {
+  display: block;
+  z-index: 999999;
+}
+.menu li {
+  display: inline-block;
+  position: relative;
+}
+.menu li.dropdown:hover > .submenu {
+  display: block;
+}
+.menu li a {
+  display: block;
+  padding: 12px 8px;
+}
+.menu li.dropdown > a::after {
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  margin-right: 8px;
+  font-size: 10px;
+}
+.menu li a::before {
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  margin-right: 8px;
+}
+.menu li a:hover {
+  background: grey;
+}
+
+.menu .submenu {
+  display: none;
+}
+.submenu {
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  right: 0px;
+  list-style-type: none;
+  display: block;
+  width: 200px;
+  z-index: 9;
+}
+.submenu li {
+  display: block;
+}
+.submenu li a {
+  display: block;
+  background: #999;
+  color: #fff;
+  padding: 8px 6px;
+  margin-bottom: 1px;
+}
+.menu .submenu > li.dropdown:hover > .submenu {
+  display: block;
+}
+
+.menu .submenu .submenu {
+  position: absolute;
+  right: 200px;
+  top: 0px;
+}
+
+.submenu li.dropdown > a:after {
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  margin-right: 8px;
+  font-size: 10px;
+}

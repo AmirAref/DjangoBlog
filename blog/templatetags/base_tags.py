@@ -6,5 +6,5 @@ register = template.Library()
 @register.inclusion_tag('blog/partial/category_navbar.html')
 def category_navbar():
     return {
-        'categories' : Category.objects.filter(status=True),
+        'categories' : Category.objects.active,
     }
