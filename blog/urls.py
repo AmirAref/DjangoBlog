@@ -1,10 +1,10 @@
 from django.urls import path, re_path
-from .views import home, artcile_detail, category
+from .views import PostList, artcile_detail, category
 
 app_name = 'blog'
 urlpatterns = [
-    path('', home, name='home'),
-    path('page/<int:page>', home, name="home"),
+    path('', PostList.as_view(), name='home'),
+    path('page/<int:page>', PostList.as_view(), name="home"),
     path('article/<slug:slug>', artcile_detail, name="detail"),
     path('category/<slug:slug>', category, name="category"),
     path('category/<slug:slug>/page/<int:page>', category, name="category"),

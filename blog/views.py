@@ -1,20 +1,13 @@
 from django.core.paginator import Paginator
+from django.views.generic import ListView
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Post
 
 
 # Create your views here.
-def home(request, page=1):
-    # make paginator object
-    posts_list = Post.objects.published()
-    paginator = Paginator(posts_list, 6)
-    # get and display the specific page object
-    page_object = paginator.get_page(page)
-    contex = {
-        'posts' : page_object,
-    }
-    return render(request, 'blog/home.html', contex)
-
+class PostList(ListView):
+    queryset = Post.objects.published()
+    paginate_by = 6
 
 def artcile_detail(request, slug):
     contex = {
