@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Post
 
@@ -9,11 +9,11 @@ class PostList(ListView):
     queryset = Post.objects.published()
     paginate_by = 6
 
-def artcile_detail(request, slug):
-    contex = {
-        'post' : get_object_or_404(Post.objects.published(), slug=slug)
-        }
-    return render(request, 'blog/details.html', contex)
+class ArticleDetail(DetailView):
+    # display the detial page of any article (post) by slug
+    def get_object(self) :
+        slug = self.kwargs['slug']
+        return get_object_or_404(Post.objects.published(), slug=slug)
 
 def category(request, slug, page=1):
     # variables
