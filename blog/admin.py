@@ -1,6 +1,6 @@
-from unicodedata import category
-from django.contrib import admin
+from django.contrib import admin, messages
 from .models import Post, Category
+from django.utils.translation import ngettext
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
@@ -19,11 +19,34 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug' : ('title', )}
     ordering = ('status', '-publish')
+    actions = ('make_published', 'make_draft', )
 
     def caregoty_to_str(self, obj):
         # convert the categories list to the string
         return ", ".join(map(lambda x : x.title, obj.active_category() ))
     caregoty_to_str.short_description = "دسته بندی"
+    
+    # make the posts published action
+    @admin.action(description="انتشار")
+    def make_published(self, request, queryset):
+        updated = queryset.update(status='p')
+        # alert message
+        self.message_user(request, ngettext(
+            '%d مقاله با موفقیت منتشر شد.', #single
+            '%d مقاله با موفقیت منتشر شدند.', #plural
+            updated,
+        ) % updated, messages.SUCCESS)
+
+    # make the posts draft action
+    @admin.action(description="پیش‌نویس")
+    def make_draft(self, request, queryset):
+        updated = queryset.update(status='d')
+        # alert message
+        self.message_user(request, ngettext(
+            '%d مقاله با موفقیت پیش‌نویس شد.', #single
+            '%d مقاله با موفقیت پیش‌نویس شدند.', #plural
+            updated,
+        ) % updated, messages.SUCCESS)
 
 
 admin.site.register(Post, PostAdmin)
