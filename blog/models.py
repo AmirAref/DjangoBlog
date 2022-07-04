@@ -1,6 +1,6 @@
-from tabnanny import verbose
 from django.db import models
 from django.utils import timezone
+from django.utils.html import format_html
 from extensions.utils import jalali_convertor
 
 # create your managers here
@@ -63,6 +63,11 @@ class Post(models.Model):
     # get only active categories
     def active_category(self):
         return self.category.filter(status=True)
+    
+    # thumbnail little size tag (to dosplay in admin panel)
+    def thumbnail_tag(self):
+        return format_html(f'<img width=90 style="border-radius:5px" src={self.thumbnail.url}>')
+    thumbnail_tag.short_description = thumbnail.verbose_name
 
     def __str__(self) -> str:
         return self.title
