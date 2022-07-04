@@ -8,7 +8,29 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     search_fields = ('title', 'slug')
     prepopulated_fields = {'slug' : ('title', )}
+    actions = ('make_active', 'make_inactive', )
+    
+    # make the posts published action
+    @admin.action(description="فعال کردن")
+    def make_active(self, request, queryset):
+        updated = queryset.update(status=True)
+        # alert message
+        self.message_user(request, ngettext(
+            '%d دسته‌بندی با موفقیت فعال شد.', #singular
+            '%d دسته‌بندی با موفقیت فعال شدند.', #plural
+            updated,
+        ) % updated, messages.SUCCESS)
 
+    # make the posts draft action
+    @admin.action(description="غیرفعال کردن")
+    def make_inactive(self, request, queryset):
+        updated = queryset.update(status=False)
+        # alert message
+        self.message_user(request, ngettext(
+            '%d دسته‌بندی با موفقیت غیرفعال شد.', #singular
+            '%d دسته‌بندی با موفقیت غیرفعال شدند.', #plural
+            updated,
+        ) % updated, messages.SUCCESS)
 
 admin.site.register(Category, CategoryAdmin)
 
