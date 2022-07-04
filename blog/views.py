@@ -15,16 +15,17 @@ class ArticleDetail(DetailView):
         slug = self.kwargs['slug']
         return get_object_or_404(Post.objects.published(), slug=slug)
 
-def category(request, slug, page=1):
-    # variables
-    category = get_object_or_404(Category, slug=slug, status=True)
-    posts_list = category.posts.published()
-    # make paginator object
-    paginator = Paginator(posts_list, 6)
-    # get and display the specific page object
-    page_object = paginator.get_page(page)
-    contex = {
-        'category' : category,
-        'posts' : page_object,
-        }
-    return render(request, 'blog/category.html', contex)
+class CategoryList(ListView):
+    paginate_by = 6
+    template_name = 'blog/category_list.html'
+    
+    def get_queryset(self):
+        # display the artciles list of the category
+        slug = self.kwargs['slug']
+        self.category = get_object_or_404(Category.objects.active(), slug=slug)
+        return self.category.posts.published()
+    
+    def get_context_data(self, **kwargs):
+        contex = super().get_context_data(**kwargs)
+        contex['category'] = self.category
+        return contex
