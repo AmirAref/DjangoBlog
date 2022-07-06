@@ -1,6 +1,8 @@
+import imp
 from tabnanny import verbose
 from django.db import models
 from django.utils import timezone
+from extensions.utils import jalali_convertor
 
 # Create your models here.
 class Post(models.Model):
@@ -20,6 +22,9 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'پست'
         verbose_name_plural = 'پست ها'
+    
+    def jpublish(self):
+        return jalali_convertor(self.publish)
 
     def __str__(self) -> str:
         return self.title
