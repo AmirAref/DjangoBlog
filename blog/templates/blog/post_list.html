@@ -1,60 +1,9 @@
-{% extends 'blog/base.html' %}
-{% load static %}
+{% extends 'blog/list.html' %}
 
-{% block main %}
+{% block previous_page_url %}
+    {% url 'blog:home' page_obj.previous_page_number %}
+{% endblock previous_page_url %}
 
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %}')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>وبلاگ من</h1>
-                            <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <!-- Post preview-->
-                    {% for post in object_list %}
-                        <div class="post-preview">
-                            <a target="balnk" href="{% url 'blog:detail' post.slug %}">
-                                <h2 class="post-title">{{post.title}}</h2>
-                                <h3 class="post-subtitle">{{post.description|truncatewords:20 }}</h3>
-                            </a>
-                            <p class="post-meta">
-                                <!-- Posted by
-                                <a target="blank" href="#!">Start Bootstrap</a> -->
-                                {{post.jpublish}}
-                            </p>
-                            <div>
-                                {% for cat in post.category.active %}
-                                    <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Pager-->
-                    {% if is_paginated  %}
-                        <div class="d-flex justify-content-end mb-4 pager-button">
-                            {% if page_obj.has_previous %}
-                                <a class="btn btn-primary text-uppercase ms-3" href="{% url 'blog:home' page_obj.previous_page_number %}">پست های جدید &rarr;</a>
-                            {% endif %}
-                            {% if page_obj.has_next %}
-                                <a class="btn btn-primary text-uppercase" href="{% url 'blog:home' page_obj.next_page_number %}">پست های قدیمی &larr;</a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-{% endblock %}
+{% block next_page_url %}
+    {% url 'blog:home' page_obj.next_page_number %}
+{% endblock next_page_url %}
