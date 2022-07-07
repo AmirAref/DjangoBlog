@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from .models import Category, Post
 
 
@@ -28,4 +29,19 @@ class CategoryList(ListView):
     def get_context_data(self, **kwargs):
         contex = super().get_context_data(**kwargs)
         contex['category'] = self.category
+        return contex
+
+class AuthorList(ListView):
+    paginate_by = 6
+    template_name = 'blog/author_list.html'
+    
+    def get_queryset(self):
+        # display the artciles list of the category
+        self.author = get_object_or_404(User, username=self.kwargs['username'])
+        return self.author.posts.published()
+    
+    def get_context_data(self, **kwargs):
+        # add the author to the contex
+        contex = super().get_context_data(**kwargs)
+        contex['author'] = self.author
         return contex

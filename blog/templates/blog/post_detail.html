@@ -11,7 +11,10 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
                             <h1>{{object.title}}</h1>
-                            <span class="meta">
+                            <span class="meta mt-3">
+                                {{object.author.get_full_name}}
+                            </span>
+                            <span class="meta mt-2">
                                 {{object.jpublish}}
                             </span>
                         </div>
