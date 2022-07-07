@@ -18,3 +18,11 @@
     font-weight: 300;
     font-style: normal;
 }
+
+
+@font-face {
+    font-family: 'Sahel';
+    src: url('../fonts/Sahel.woff');
+    font-weight: 300;
+    font-style: normal;
+}
