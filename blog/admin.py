@@ -45,7 +45,7 @@ class PostAdmin(admin.ModelAdmin):
 
     def caregoty_to_str(self, obj):
         # convert the categories list to the string
-        return ", ".join(map(lambda x : x.title, obj.active_category() ))
+        return ", ".join(map(lambda x : x.title, obj.category.active() ))
     caregoty_to_str.short_description = "دسته بندی"
     
     # make the posts published action

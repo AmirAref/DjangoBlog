@@ -59,10 +59,6 @@ class Post(models.Model):
         return jalali_convertor(self.publish)
 
     jpublish.short_description = publish.verbose_name
-
-    # get only active categories
-    def active_category(self):
-        return self.category.filter(status=True)
     
     # thumbnail little size tag (to dosplay in admin panel)
     def thumbnail_tag(self):
