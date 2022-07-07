@@ -36,8 +36,8 @@ admin.site.register(Category, CategoryAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'thumbnail_tag', 'slug', 'jpublish', 'status', 'caregoty_to_str')
-    list_filter = ('publish', 'status')
+    list_display = ('title', 'thumbnail_tag', 'slug', 'author', 'jpublish', 'status', 'caregoty_to_str')
+    list_filter = ('publish', 'status', 'author')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug' : ('title', )}
     ordering = ('status', '-publish')

@@ -25,13 +25,12 @@
                     <!-- Post preview-->
                     {% for post in object_list %}
                         <div class="post-preview">
-                            <a target="balnk" href="{% url 'blog:detail' post.slug %}">
+                            <a href="{% url 'blog:detail' post.slug %}">
                                 <h2 class="post-title">{{post.title}}</h2>
                                 <h3 class="post-subtitle">{{post.description|truncatewords:20 }}</h3>
                             </a>
                             <p class="post-meta">
-                                <!-- Posted by
-                                <a target="blank" href="#!">Start Bootstrap</a> -->
+                                نوشته شده توسط : <a href="#">{{post.author.get_full_name}}</a> در
                                 {{post.jpublish}}
                             </p>
                             <div>
