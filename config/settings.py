@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # persoanl apps
     'blog.apps.BlogConfig',
+    'account.apps.AccountConfig',
     'extensions',
 ]
 
