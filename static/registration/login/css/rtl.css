@@ -1,0 +1,11 @@
+@import url('https://v1.fontapi.ir/css/Sahel');
+
+body{
+    direction: rtl !important;
+    text-align: right !important;
+    font-family: 'Sahel' !important;
+}
+
+.myfont {
+    font-family: 'Sahel' !important;
+}

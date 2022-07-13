@@ -26,6 +26,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/css/util.css'%}">
 	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/css/main.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/css/rtl.css'%}">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -35,33 +36,33 @@
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<form class="login100-form validate-form" method="post">
                     {% csrf_token %}
-					<span class="login100-form-title p-b-49">
-						Login
+					<span class="login100-form-title p-b-49 myfont">
+						ورود
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-						<span class="label-input100">Username</span>
+						<span class="label-input100 myfont">نام کاربری</span>
 						{{ form.username }}
 						<span class="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<span class="label-input100">Password</span>
+					<div class="wrap-input100 validate-input m-b-31" data-validate="Password is required">
+						<span class="label-input100 myfont">رمز عبور</span>
 						{{ form.password }}
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 					
-					<div class="text-right p-t-8 p-b-31">
+					<!--div class="text-right p-t-8 p-b-31">
 						<a href="#">
-							Forgot password?
+							فراموشی رمز عبور ؟
 						</a>
-					</div>
+					</div-->
 					
-					<div class="container-login100-form-btn">
+					<div class="container-login100-form-btn myfont">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								Login
+								ورود
 							</button>
 						</div>
 					</div>
