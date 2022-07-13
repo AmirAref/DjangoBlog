@@ -9,3 +9,10 @@ body{
 .myfont {
     font-family: 'Sahel' !important;
 }
+
+.errors{
+    color: red;
+    padding: 20px;
+    background-color: rgb(250, 203, 203);
+    border-radius: 10px;
+}
