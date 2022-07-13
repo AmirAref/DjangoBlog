@@ -62,6 +62,12 @@ class Post(models.Model):
 
     jpublish.short_description = publish.verbose_name
     
+    # display the catories list as a string
+    def category_to_str(self):
+        # convert the categories list to the string
+        return ", ".join(map(lambda x : x.title, self.category.active() ))
+    category_to_str.short_description = "دسته بندی"
+    
     # thumbnail little size tag (to dosplay in admin panel)
     def thumbnail_tag(self):
         return format_html(f'<img width=90 style="border-radius:5px" src={self.thumbnail.url}>')

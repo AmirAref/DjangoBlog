@@ -36,17 +36,12 @@ admin.site.register(Category, CategoryAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'thumbnail_tag', 'slug', 'author', 'jpublish', 'status', 'caregoty_to_str')
+    list_display = ('title', 'thumbnail_tag', 'slug', 'author', 'jpublish', 'status', 'category_to_str')
     list_filter = ('publish', 'status', 'author')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug' : ('title', )}
     ordering = ('status', '-publish')
     actions = ('make_published', 'make_draft', )
-
-    def caregoty_to_str(self, obj):
-        # convert the categories list to the string
-        return ", ".join(map(lambda x : x.title, obj.category.active() ))
-    caregoty_to_str.short_description = "دسته بندی"
     
     # make the posts published action
     @admin.action(description="انتشار")
