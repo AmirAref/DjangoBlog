@@ -26,7 +26,13 @@
             <tbody>
                 {% for post in object_list  %}
                     <tr>
-                        <td><a href="{% url 'account:post-update' post.pk %}">{{post.title}}</a></td>
+                        <td>
+                          {% if not user.is_superuser and post.status == "p" %}
+                          {{post.title}}
+                          {% else %}
+                          <a href="{% url 'account:post-update' post.pk %}">{{post.title}}</a>
+                          {% endif %}
+                        </td>
                         <td><img width=100 src="{{post.thumbnail.url}}" alt="{{post.title}}"></td>
                         <td>{{post.category_to_str}}</td>
                         <td>{{post.author.get_full_name}}</td>
