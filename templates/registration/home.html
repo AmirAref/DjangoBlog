@@ -1,6 +1,8 @@
 {% extends 'registration/base.html' %}
 
-{% block title %}لیست مقالات{% endblock title %}
+{% block title %}{% block title-meta %}
+لیست مقالات
+{% endblock title-meta %}{% endblock title %}
 
 {% block main %}
 <div class="row">

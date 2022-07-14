@@ -1,11 +1,54 @@
 {% extends 'registration/base.html' %}
 
-{% block title %}افزودن مقاله{% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% block title-meta %}
+افزودن مقاله
+{% endblock title-meta %}{% endblock title %}
 
 {% block main %}
-<form method='post' enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-success">افزودن</button>
-</form>
+
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title mb-0 float-left">افزودن مقاله</h3>
+		</div>
+
+			<!-- form start -->
+			<div class="card-body">
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+
+					<div class="row">
+						<div class="col-6">
+							{{form.title|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.slug|as_crispy_field}}
+						</div>
+						<div class="col-12">
+							{{form.description|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.category|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.thumbnail|as_crispy_field}}
+							{{form.publish|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.author|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.status|as_crispy_field}}
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-success">افزودن</button>
+
+				</form>
+			</div>
+
+	</div>
+</div>
 {% endblock main %}
