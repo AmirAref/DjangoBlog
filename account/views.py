@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import FieldsMixin, FormValidMixin
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from blog.models import Post
 
 # Create your views here.
@@ -18,5 +18,9 @@ class PostList(LoginRequiredMixin, ListView):
 
 
 class PostCreate(LoginRequiredMixin, FieldsMixin, FormValidMixin, CreateView):
+    model = Post
+    template_name = 'registration/post-create-update.html'
+
+class PostUpdate(LoginRequiredMixin, FieldsMixin, FormValidMixin, UpdateView):
     model = Post
     template_name = 'registration/post-create-update.html'
