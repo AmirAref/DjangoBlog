@@ -21,18 +21,13 @@
                 <th>خلاصه</th>
                 <th>زمان انتشار</th>
                 <th>وضعیت</th>
+                <th>عملیات</th>
               </tr>
             </thead>
             <tbody>
                 {% for post in object_list  %}
                     <tr>
-                        <td>
-                          {% if not user.is_superuser and post.status == "p" %}
-                          {{post.title}}
-                          {% else %}
-                          <a href="{% url 'account:post-update' post.pk %}">{{post.title}}</a>
-                          {% endif %}
-                        </td>
+                        <td>{{post.title}}</td>
                         <td><img width=100 src="{{post.thumbnail.url}}" alt="{{post.title}}"></td>
                         <td>{{post.category_to_str}}</td>
                         <td>{{post.author.get_full_name}}</td>
@@ -45,6 +40,18 @@
                             {% else %}
                                 <span class="badge badge-danger">پیش‌نویس</span>
                             {% endif %}
+                        </td>
+                        <td>
+                          <!--edit button-->
+                          {% if not user.is_superuser and post.status == "p" %}
+                            <a href="#" class="nav-link disabled">
+                          {% else %}
+                            <a href="{% url 'account:post-update' post.pk %}" class="nav-link">
+                          {% endif %}
+                            <i class="fa fa-edit nav-icon"></i>
+                          </a>
+                          <!--delete button-->
+
                         </td>
                     </tr>
               {% endfor %}
