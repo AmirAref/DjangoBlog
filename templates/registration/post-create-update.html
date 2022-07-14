@@ -1,0 +1,11 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}افزودن مقاله{% endblock title %}
+
+{% block main %}
+<form method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-success">افزودن</button>
+</form>
+{% endblock main %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from blog.models import Post
 
 # Create your views here.
@@ -14,3 +14,9 @@ class PostList(LoginRequiredMixin, ListView):
         else:
             # only the specific user's posts
             return Post.objects.filter(author=self.request.user)
+
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['author', 'title', 'slug', 'description', 'category', 'publish', 'thumbnail', 'status']
+    template_name = 'registration/post-create-update.html'

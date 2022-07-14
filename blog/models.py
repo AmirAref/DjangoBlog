@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from django.utils.html import format_html
 from django.contrib.auth.models import User
 from extensions.utils import jalali_convertor
@@ -73,6 +74,10 @@ class Post(models.Model):
         return format_html(f'<img width=90 style="border-radius:5px" src={self.thumbnail.url}>')
     thumbnail_tag.short_description = thumbnail.verbose_name
 
+    # redirect url after created a object of this model
+    def get_absolute_url(self):
+        return reverse('account:home')
+    
     def __str__(self) -> str:
         return self.title
 
