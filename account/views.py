@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import FieldsMixin, FormValidMixin
+from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin
 from django.views.generic import ListView, CreateView, UpdateView
 from blog.models import Post
 
@@ -21,6 +21,6 @@ class PostCreate(LoginRequiredMixin, FieldsMixin, FormValidMixin, CreateView):
     model = Post
     template_name = 'registration/post-create-update.html'
 
-class PostUpdate(LoginRequiredMixin, FieldsMixin, FormValidMixin, UpdateView):
+class PostUpdate(AuthorAccessMixin, FieldsMixin, FormValidMixin, UpdateView):
     model = Post
     template_name = 'registration/post-create-update.html'
