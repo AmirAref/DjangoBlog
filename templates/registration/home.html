@@ -30,7 +30,7 @@
                         <td><img width=100 src="{{post.thumbnail.url}}" alt="{{post.title}}"></td>
                         <td>{{post.category_to_str}}</td>
                         <td>{{post.author.get_full_name}}</td>
-                        <td>{{post.description|truncatewords:25}}</td>
+                        <td>{{post.description|striptags|truncatewords:25}}</td>
                         <td>{{post.jpublish}}</td>
                         <td>
                             {% if post.status == 'p' %}
