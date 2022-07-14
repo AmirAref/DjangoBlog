@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from blog.models import Post
 
 # Create your views here.
@@ -24,3 +25,8 @@ class PostCreate(LoginRequiredMixin, FieldsMixin, FormValidMixin, CreateView):
 class PostUpdate(AuthorAccessMixin, FieldsMixin, FormValidMixin, UpdateView):
     model = Post
     template_name = 'registration/post-create-update.html'
+
+class PostDelete(AuthorAccessMixin, FieldsMixin, FormValidMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('account:home')
+    template_name = 'registration/post_confirm_delete.html'

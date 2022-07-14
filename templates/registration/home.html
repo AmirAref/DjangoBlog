@@ -51,7 +51,11 @@
                             <i class="fa fa-edit nav-icon"></i>
                           </a>
                           <!--delete button-->
-
+                          {% if user.is_superuser %}
+                            <a href="{% url 'account:post-delete' post.pk %}" class="nav-link">
+                                <i class="fa fa-trash nav-icon"></i>
+                            </a>
+                          {% endif %}
                         </td>
                     </tr>
               {% endfor %}
