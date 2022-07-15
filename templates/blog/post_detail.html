@@ -27,7 +27,17 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7 text-justify">
-                        <p>{{object.description|safe|linebreaks}}</p>
+                        <!--check special posts-->
+                        {% if object.is_special %}
+                            <!--check user premissions-->
+                            {% if user.is_authenticated and user.is_special_user or object.author == user or user.is_superuser %}
+                                <p>{{object.description|safe|linebreaks}}</p>
+                            {% else %}
+                                <p class="text-red">این یک محتوای ویژه است و برای مشاهده آن باید <a href="#">اشتراک ویژه</a> تهیه کنید</p>
+                            {% endif %}
+                        {% else %}
+                            <p>{{object.description|safe|linebreaks}}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
