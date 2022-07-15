@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from blog.models import Post
+from .models import User
+from account.forms import ProfileForm
 
 # Create your views here.
 class PostList(LoginRequiredMixin, ListView):
@@ -30,3 +32,11 @@ class PostDelete(AuthorAccessMixin, FieldsMixin, FormValidMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('account:home')
     template_name = 'registration/post_confirm_delete.html'
+
+class Profile(LoginRequiredMixin, UpdateView):
+    form_class = ProfileForm
+    success_url = reverse_lazy('account:profile')
+    template_name = 'registration/profile.html'
+    
+    def get_object(self):
+        return User.objects.get(pk=self.request.user.pk)
