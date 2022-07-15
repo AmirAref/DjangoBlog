@@ -21,6 +21,7 @@
                   <th>نویسنده</th>
                   <th>خلاصه</th>
                   <th>زمان انتشار</th>
+                  <th>مقاله ویژه</th>
                   <th>وضعیت</th>
                   <th>عملیات</th>
                 </tr>
@@ -34,6 +35,13 @@
                           <td>{{post.author.get_full_name}}</td>
                           <td>{{post.description|striptags|truncatewords:25}}</td>
                           <td>{{post.jpublish}}</td>
+                          <td>
+                            {% if post.is_special %}
+                              <i class="fa fa-check-circle text-green"></i>
+                            {% else %}
+                              <i class="fa fa-minus-circle text-red"></i>
+                            {% endif %}
+                          </td>
                           <td>
                             <!--post statuses-->
 

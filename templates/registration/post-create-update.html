@@ -44,6 +44,9 @@
 								{{form.status|as_crispy_field}}
 							</div>
 						{% endif %}
+						<div class="col-6">
+							{{form.is_special|as_crispy_field}}
+						</div>
 					</div>
 
 					<button type="submit" class="btn btn-success">{% if request.resolver_match.url_name == 'post-create' %}افزودن مقاله{% else %}ویرایش مقاله{% endif %}</button>

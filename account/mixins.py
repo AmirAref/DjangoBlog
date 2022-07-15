@@ -12,6 +12,7 @@ class FieldsMixin:
                 'slug', 'description', 
                 'category', 'publish', 
                 'author', 'status',
+                'is_special',
                 ]
         elif request.user.is_author:
             # remove the author and status fields
@@ -19,6 +20,7 @@ class FieldsMixin:
                 'title', 'thumbnail', 
                 'slug', 'description', 
                 'category', 'publish',
+                'is_special',
                 ]
         else:
             # raise error for non premissions users
