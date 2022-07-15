@@ -40,6 +40,7 @@
                                   <a href="{% url "blog:detail" post.slug %}" target="blank" class="badge badge-primary">نمایش مقاله در سایت</a>
                               {% else %}
                                   <span class="badge badge-danger">پیش‌نویس</span>
+                                  <a href="{% url "blog:preview" post.pk %}" target="blank" class="badge badge-secondary">پیش‌نمایش</a>
                               {% endif %}
                           </td>
                           <td>

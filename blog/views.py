@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
+from account.mixins import AuthorAccessMixin
 from account.models import User
 from .models import Category, Post
 
@@ -15,6 +16,13 @@ class ArticleDetail(DetailView):
     def get_object(self) :
         slug = self.kwargs['slug']
         return get_object_or_404(Post.objects.published(), slug=slug)
+
+class ArticlePreview(AuthorAccessMixin, DetailView):
+    # display the detial page of any article (post) by slug
+    def get_object(self) :
+        pk = self.kwargs['pk']
+        return get_object_or_404(Post, pk=pk)
+
 
 class CategoryList(ListView):
     paginate_by = 6
