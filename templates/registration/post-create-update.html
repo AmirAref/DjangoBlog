@@ -46,7 +46,11 @@
 						{% endif %}
 					</div>
 
-					<button type="submit" class="btn btn-success">افزودن</button>
+					<button type="submit" class="btn btn-success">{% if request.resolver_match.url_name == 'post-create' %}افزودن مقاله{% else %}ویرایش مقاله{% endif %}</button>
+					<!--delete button-->
+					{% if user.is_superuser and request.resolver_match.kwargs.pk %}
+					  <a href="{% url 'account:post-delete' request.resolver_match.kwargs.pk %}" class="btn btn-danger">حذف</a>
+					{% endif %}
 
 				</form>
 			</div>
