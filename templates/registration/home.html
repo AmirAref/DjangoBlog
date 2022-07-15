@@ -7,63 +7,67 @@
 {% block main %}
 <div class="row">
     <div class="col-12">
-      <div class="card">
+      {% if object_list %}
+        <div class="card">
 
-        <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>عنوان</th>
-                <th>تصویر</th>
-                <th>دسته‌بندی</th>
-                <th>نویسنده</th>
-                <th>خلاصه</th>
-                <th>زمان انتشار</th>
-                <th>وضعیت</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for post in object_list  %}
-                    <tr>
-                        <td>{{post.title}}</td>
-                        <td><img width=100 src="{{post.thumbnail.url}}" alt="{{post.title}}"></td>
-                        <td>{{post.category_to_str}}</td>
-                        <td>{{post.author.get_full_name}}</td>
-                        <td>{{post.description|striptags|truncatewords:25}}</td>
-                        <td>{{post.jpublish}}</td>
-                        <td>
-                            {% if post.status == 'p' %}
-                                <span class="badge badge-success">منتشر شده</span>
-                                <a href="{% url "blog:detail" post.slug %}" target="blank" class="badge badge-primary">نمایش مقاله در سایت</a>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>عنوان</th>
+                  <th>تصویر</th>
+                  <th>دسته‌بندی</th>
+                  <th>نویسنده</th>
+                  <th>خلاصه</th>
+                  <th>زمان انتشار</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for post in object_list  %}
+                      <tr>
+                          <td>{{post.title}}</td>
+                          <td><img width=100 src="{{post.thumbnail.url}}" alt="{{post.title}}"></td>
+                          <td>{{post.category_to_str}}</td>
+                          <td>{{post.author.get_full_name}}</td>
+                          <td>{{post.description|striptags|truncatewords:25}}</td>
+                          <td>{{post.jpublish}}</td>
+                          <td>
+                              {% if post.status == 'p' %}
+                                  <span class="badge badge-success">منتشر شده</span>
+                                  <a href="{% url "blog:detail" post.slug %}" target="blank" class="badge badge-primary">نمایش مقاله در سایت</a>
+                              {% else %}
+                                  <span class="badge badge-danger">پیش‌نویس</span>
+                              {% endif %}
+                          </td>
+                          <td>
+                            <!--edit button-->
+                            {% if not user.is_superuser and post.status == "p" %}
+                              <a href="#" class="nav-link disabled">
                             {% else %}
-                                <span class="badge badge-danger">پیش‌نویس</span>
+                              <a href="{% url 'account:post-update' post.pk %}" class="nav-link">
                             {% endif %}
-                        </td>
-                        <td>
-                          <!--edit button-->
-                          {% if not user.is_superuser and post.status == "p" %}
-                            <a href="#" class="nav-link disabled">
-                          {% else %}
-                            <a href="{% url 'account:post-update' post.pk %}" class="nav-link">
-                          {% endif %}
-                            <i class="fa fa-edit nav-icon"></i>
-                          </a>
-                          <!--delete button-->
-                          {% if user.is_superuser %}
-                            <a href="{% url 'account:post-delete' post.pk %}" class="nav-link">
-                                <i class="fa fa-trash nav-icon"></i>
+                              <i class="fa fa-edit nav-icon"></i>
                             </a>
-                          {% endif %}
-                        </td>
-                    </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+                            <!--delete button-->
+                            {% if user.is_superuser %}
+                              <a href="{% url 'account:post-delete' post.pk %}" class="nav-link">
+                                  <i class="fa fa-trash nav-icon"></i>
+                              </a>
+                            {% endif %}
+                          </td>
+                      </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
-      </div>
+      {% else %}
+      <h3 class="text-red">محتوایی برای نمایش وجود ندارد</h3>
+      {% endif %}
       <!-- /.card -->
     </div>
   </div>
