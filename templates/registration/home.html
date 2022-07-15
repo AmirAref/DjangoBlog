@@ -35,9 +35,23 @@
                           <td>{{post.description|striptags|truncatewords:25}}</td>
                           <td>{{post.jpublish}}</td>
                           <td>
+                            <!--post statuses-->
+
+                              <!--published-->
                               {% if post.status == 'p' %}
                                   <span class="badge badge-success">منتشر شده</span>
                                   <a href="{% url "blog:detail" post.slug %}" target="blank" class="badge badge-primary">نمایش مقاله در سایت</a>
+                              <!--investigation-->
+                              {% elif post.status == 'i' %}
+                                <span class="badge badge-secondary">در حال بررسی</span>
+                                {% if user.is_superuser %}
+                                  <a href="{% url "blog:preview" post.pk %}" target="blank" class="badge badge-secondary">پیش‌نمایش</a>
+                                {% endif %}
+                              <!--rejected-->
+                              {% elif post.status == 'r' %}
+                                <span class="badge badge-warning">رد شده</span>
+                                <a href="{% url "blog:preview" post.pk %}" target="blank" class="badge badge-secondary">پیش‌نمایش</a>
+                              <!--draft-->
                               {% else %}
                                   <span class="badge badge-danger">پیش‌نویس</span>
                                   <a href="{% url "blog:preview" post.pk %}" target="blank" class="badge badge-secondary">پیش‌نمایش</a>
@@ -45,7 +59,7 @@
                           </td>
                           <td>
                             <!--edit button-->
-                            {% if not user.is_superuser and post.status == "p" %}
+                            {% if not user.is_superuser and post.status in 'pi'|make_list %}
                               <a href="#" class="nav-link disabled">
                             {% else %}
                               <a href="{% url 'account:post-update' post.pk %}" class="nav-link">

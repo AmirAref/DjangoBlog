@@ -38,8 +38,10 @@ class Category(models.Model):
 
 class Post(models.Model):
     STATUS_CHOICES = (
-        ('p', 'منتشر شده'),
-        ('d', 'پیش‌نویس'),
+        ('p', 'منتشر شده'), #deraft
+        ('d', 'پیش‌نویس'),  # published
+        ('i', 'در حال بررسی'), # investigation
+        ('r', 'رد شده'), # rejected
     )
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='posts', verbose_name="نویسنده")
     title = models.CharField(max_length=200, verbose_name='عنوان پست')

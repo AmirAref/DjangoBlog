@@ -48,7 +48,7 @@ class AuthorAccessMixin:
             # check the author of Post object
             post = get_object_or_404(Post, pk=pk)
             # the author can not edit the published posts !
-            if post.author != request.user or post.status == "p":
+            if post.author != request.user or post.status in ['p', 'i'] :
                 raise Http404('you can\'t access to this page !')
             
         
