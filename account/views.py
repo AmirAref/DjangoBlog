@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView
 from blog.models import Post
 from .models import User
 from account.forms import ProfileForm
@@ -47,3 +48,14 @@ class Profile(LoginRequiredMixin, UpdateView):
             {'user' : self.request.user}
         )
         return kwargs
+
+class Login(LoginView):
+    def get_success_url(self):
+        user = self.request.user
+        # check user premission type
+        if user.is_superuser or user.is_author:
+            # home page
+            return reverse_lazy('account:home')
+        else:
+            # profile page
+            return reverse_lazy('account:profile')
