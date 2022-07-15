@@ -3,16 +3,19 @@ from .models import User
 
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super(ProfileForm, self).__init__(*args, **kwargs)
         
         # help text
         self.fields['username'].help_text = None
-
-        # disabled
-        self.fields['username'].disabled = True
-        self.fields['email'].disabled = True
-        self.fields['special_subscription'].disabled = True
-        self.fields['is_author'].disabled = True
+        
+        # check superusers
+        if not user.is_superuser:
+            # disable fields
+            self.fields['username'].disabled = True
+            self.fields['email'].disabled = True
+            self.fields['special_subscription'].disabled = True
+            self.fields['is_author'].disabled = True
     
     class Meta:
         model = User
