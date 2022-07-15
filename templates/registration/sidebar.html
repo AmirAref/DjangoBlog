@@ -1,4 +1,6 @@
 {% load static %}
+{% load base_tags %}
+
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -35,13 +37,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'account:home' %}" class="nav-link active">
+                <a href="{% url 'account:home' %}" class="nav-link {% activate request 'home' %}">
                   <i class="fa fa-list nav-icon"></i>
                   <p>لیست مقالات</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'account:post-create' %}" class="nav-link">
+                <a href="{% url 'account:post-create' %}" class="nav-link {% activate request 'post-create' %}">
                   <i class="fa fa-edit nav-icon"></i>
                   <p>افزودن مقاله</p>
                 </a>
