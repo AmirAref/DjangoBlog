@@ -26,6 +26,7 @@
 }
 
 
+@import url('https://v1.fontapi.ir/css/Sahel');
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -39,12 +40,12 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+	font-family: Sahel, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
+	font-family: Sahel;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -70,7 +71,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
+	font-family: Sahel;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -136,14 +137,14 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: Poppins-Regular;
+  font-family: Sahel;
   font-size: 14px;
   line-height: 1.5;
   color: #666666;
 }
 
 .txt2 {
-  font-family: Poppins-Regular;
+  font-family: Sahel;
   font-size: 14px;
   line-height: 1.5;
   color: #333333;
@@ -197,7 +198,7 @@ iframe {
 
 .login100-form-title {
   display: block;
-  font-family: Poppins-Bold;
+  font-family: Sahel;
   font-size: 39px;
   color: #333333;
   line-height: 1.2;
@@ -216,7 +217,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Poppins-Regular;
+  font-family: Sahel;
   font-size: 14px;
   color: #333333;
   line-height: 1.5;
@@ -224,7 +225,7 @@ iframe {
 }
 
 .input100 {
-  font-family: Poppins-Medium;
+  font-family: Sahel;
   font-size: 16px;
   color: #333333;
   line-height: 1.2;
@@ -350,7 +351,7 @@ iframe {
 }
 
 .login100-form-btn {
-  font-family: Poppins-Medium;
+  font-family: Sahel;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -397,7 +398,7 @@ iframe {
   right: 2px;
   pointer-events: none;
 
-  font-family: Poppins-Regular;
+  font-family: Sahel;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
