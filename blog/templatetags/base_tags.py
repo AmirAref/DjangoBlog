@@ -15,3 +15,7 @@ def activate(request, url_name):
     if request.resolver_match.url_name == url_name:
         return 'active'
     return ''
+
+@register.inclusion_tag('registration/partials/errors_field.html')
+def field_errors(errors):
+    return {'errors' : errors}

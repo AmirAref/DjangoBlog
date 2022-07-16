@@ -1,0 +1,7 @@
+{% if errors %}
+        <div class="errors m-t-10 m-b-10">
+            {% for error in errors %}
+                <span class='dis-block fs-15'>{{error}}</span>
+            {% endfor %} 
+        </div>
+{% endif %}

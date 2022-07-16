@@ -1,6 +1,7 @@
 {% extends 'registration/base_auth.html' %}
 
 {% load widget_tweaks %}
+{% load base_tags %}
 
 {% block title %}ورود به حساب کاربری{% endblock title %}
 
@@ -11,43 +12,25 @@
 			<span class="login100-form-title p-b-49 myfont">ورود</span>
 			
 			<!--non-field errors-->
-			{% if form.non_field_errors %}
-					<div class="errors m-b-20 fs-18">
-					{% for error in form.non_field_errors %}
-									<span>{{error}}</span>
-					{% endfor %} 
-					</div>
-			{% endif %}
+			{% field_errors form.non_field_errors %}
 				
 			<!--username input-->
 			<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
 					<span class="label-input100 myfont">نام کاربری</span>
 					{{ form.username|add_class:"input100" }}
-					<!--username errors-->
-					{% if form.username.errors %}
-							<div class="errors m-b-20">
-								{% for error in form.username.errors %}
-									<span>{{error}}</span>
-								{% endfor %} 
-							</div>
-					{% endif %}
 					<span class="focus-input100" data-symbol="&#xf206;"></span>
 			</div>
+			<!--username errors-->
+			{% field_errors form.username.errors %}
 
 			<!--password input-->
 			<div class="wrap-input100 validate-input" data-validate="Password is required">
 					<span class="label-input100 myfont">رمز عبور</span>
 					{{ form.password|add_class:"input100" }}
-					<!--password errors-->
-					{% if form.password.errors %}
-							<div class="errors m-b-20">
-							{% for error in form.password.errors %}
-											<span>{{error}}</span>
-							{% endfor %} 
-							</div>
-					{% endif %}
 					<span class="focus-input100" data-symbol="&#xf190;"></span>
 			</div>
+			<!--password errors-->
+			{% field_errors form.password.errors %}
 			
 			<!--forget password link-->
 			<div class="text-right p-t-8 p-b-31">
