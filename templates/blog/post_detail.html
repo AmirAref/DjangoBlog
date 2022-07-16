@@ -11,6 +11,9 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
                             <h1>{{object.title}}</h1>
+                            {% if post.is_special %}
+                            <span class="badge badge-danger fs-5">ویژه</span>
+                            {% endif %}
                             <span class="meta mt-3">
                                 {{object.author.get_full_name}}
                             </span>
@@ -33,7 +36,8 @@
                             {% if user.is_authenticated and user.is_special_user or object.author == user or user.is_superuser %}
                                 <p>{{object.description|safe|linebreaks}}</p>
                             {% else %}
-                                <p class="text-red">این یک محتوای ویژه است و برای مشاهده آن باید <a href="#">اشتراک ویژه</a> تهیه کنید</p>
+                                <p>{{object.description|striptags|truncatewords:30}}</p>
+                                <p class="alert alert-warning">این یک محتوای ویژه است و برای مشاهده آن باید <a href="#">اشتراک ویژه</a> تهیه کنید</p>
                             {% endif %}
                         {% else %}
                             <p>{{object.description|safe|linebreaks}}</p>

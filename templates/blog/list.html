@@ -26,7 +26,12 @@
                     {% for post in object_list %}
                         <div class="post-preview">
                             <a href="{% url 'blog:detail' post.slug %}">
-                                <h2 class="post-title">{{post.title}}</h2>
+                                <h2 class="post-title">
+                                    {{post.title}}
+                                    {% if post.is_special %}
+                                    <span class="badge badge-danger fs-5">ویژه</span>
+                                    {% endif %}
+                                </h2>
                                 <h3 class="post-subtitle">{{post.description|striptags|truncatewords:20 }}</h3>
                             </a>
                             <p class="post-meta">
