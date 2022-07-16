@@ -7,6 +7,7 @@ filelock==3.7.1
 pbr==5.9.0
 Pillow==9.1.1
 platformdirs==2.5.2
+python-decouple==3.6
 pytz==2022.1
 six==1.16.0
 sqlparse==0.4.2
