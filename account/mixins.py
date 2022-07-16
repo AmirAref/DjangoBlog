@@ -57,6 +57,10 @@ class AuthorAccessMixin:
 
 class AuthorsAccessMixin:
     def dispatch(self, request, *args, **kwargs):
+        # redirect anonymous users to login page
+        if not request.user.is_authenticated:
+            return redirect('account:login')
+        
         # only superusers and authors allow access
         if request.user.is_superuser or request.user.is_author:
             return super().dispatch(request, *args, **kwargs)
