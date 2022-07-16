@@ -52,6 +52,14 @@ class AuthorAccessMixin:
             # the author can not edit the published posts !
             if post.author != request.user or post.status in ['p', 'i'] :
                 raise Http404('you can\'t access to this page !')
-            
         
         return super().dispatch(request, pk, *args, **kwargs)
+
+class SuperUserMixin:
+    def dispatch(self, request, pk, *args, **kwargs):
+        # only superusers allow access
+        if request.user.is_superuser:
+            return super().dispatch(request, pk, *args, **kwargs)
+        
+        raise Http404('you can\'t access to this page !')
+        

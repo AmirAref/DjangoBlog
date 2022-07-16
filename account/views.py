@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin
+from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin, SuperUserMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from blog.models import Post
@@ -29,7 +29,7 @@ class PostUpdate(AuthorAccessMixin, FieldsMixin, FormValidMixin, UpdateView):
     model = Post
     template_name = 'registration/post-create-update.html'
 
-class PostDelete(AuthorAccessMixin, FieldsMixin, FormValidMixin, DeleteView):
+class PostDelete(SuperUserMixin, FieldsMixin, FormValidMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('account:home')
     template_name = 'registration/post_confirm_delete.html'
