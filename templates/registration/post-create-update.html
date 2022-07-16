@@ -42,19 +42,39 @@
 						<div class="col-6">
 							{{form.category|as_crispy_field}}
 						</div>
-						<div class="col-6">
+						<div class="col-6 my-auto">
 							{{form.thumbnail|as_crispy_field}}
+						</div>
+						<div class="col-6">
 							{{form.publish|as_crispy_field}}
 						</div>
 						{% if user.is_superuser %}
 							<div class="col-6">
-								{{form.author|as_crispy_field}}
-							</div>
-							<div class="col-6">
 								{{form.status|as_crispy_field}}
 							</div>
-						{% endif %}
+							<div class="col-6">
+								{{form.author|as_crispy_field}}
+							</div>
+						{% else %}
+						<!--the same status field but with limited options-->
 						<div class="col-6">
+							<div id="div_id_status"
+								 class="form-group">
+								<label for="id_status"
+									   class=" requiredField">
+									وضعیت انتشار<span class="asteriskField">*</span>
+								</label>
+								<div>
+									<select name="status" class="select form-control" required id="id_status">
+										<option value="">---------</option>
+										<option value="d">پیش&zwnj;نویس</option>
+										<option value="i">ارسال برای ادمین</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						<div class="col-6 my-auto">
 							{{form.is_special|as_crispy_field}}
 						</div>
 					</div>

@@ -5,23 +5,16 @@ from blog.models import Post
 class FieldsMixin:
     def dispatch(self, request, *args, **kwargs):
         # check the user's premissions
-        if request.user.is_superuser:
-            # all fields
+        if request.user.is_superuser or request.user.is_author:
             self.fields = [
                 'title', 'thumbnail', 
                 'slug', 'description', 
                 'category', 'publish', 
-                'author', 'status',
-                'is_special',
+                'is_special', 'status',
                 ]
-        elif request.user.is_author:
-            # remove the author and status fields
-            self.fields = [
-                'title', 'thumbnail', 
-                'slug', 'description', 
-                'category', 'publish',
-                'is_special',
-                ]
+            # author field is only for superusers
+            if request.user.is_superuser:
+                self.fields.append('author')
         else:
             # raise error for non premissions users
             raise Http404('you can\'t access to this page !')
@@ -38,7 +31,9 @@ class FormValidMixin:
             # set the author and status parameters
             self.obj = form.save(commit=False)
             self.obj.author = self.request.user
-            self.obj.status = 'd'
+            # authors only can draft or investigation statues
+            if self.obj.status != 'i':
+                self.obj.status = 'd'
         
         return super().form_valid(form)
 
