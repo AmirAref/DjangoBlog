@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .mixins import FieldsMixin, FormValidMixin, AuthorAccessMixin, SuperUserMixin
+from .mixins import AuthorsAccessMixin, FieldsMixin, FormValidMixin, AuthorAccessMixin, SuperUserMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from blog.models import Post
@@ -9,7 +9,7 @@ from .models import User
 from account.forms import ProfileForm
 
 # Create your views here.
-class PostList(LoginRequiredMixin, ListView):
+class PostList(AuthorsAccessMixin, ListView):
     template_name = 'registration/home.html'
     
     def get_queryset(self) :
@@ -21,7 +21,7 @@ class PostList(LoginRequiredMixin, ListView):
             return Post.objects.filter(author=self.request.user)
 
 
-class PostCreate(LoginRequiredMixin, FieldsMixin, FormValidMixin, CreateView):
+class PostCreate(AuthorsAccessMixin, FieldsMixin, FormValidMixin, CreateView):
     model = Post
     template_name = 'registration/post-create-update.html'
 

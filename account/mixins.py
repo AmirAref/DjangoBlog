@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from blog.models import Post
 
 class FieldsMixin:
@@ -54,6 +54,14 @@ class AuthorAccessMixin:
                 raise Http404('you can\'t access to this page !')
         
         return super().dispatch(request, pk, *args, **kwargs)
+
+class AuthorsAccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        # only superusers and authors allow access
+        if request.user.is_superuser or request.user.is_author:
+            return super().dispatch(request, *args, **kwargs)
+        # redirect to the profile page
+        return redirect('account:profile')
 
 class SuperUserMixin:
     def dispatch(self, request, pk, *args, **kwargs):
