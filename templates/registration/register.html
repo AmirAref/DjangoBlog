@@ -1,0 +1,41 @@
+{% extends 'registration/base_auth.html' %}
+
+{% load widget_tweaks %}
+{% load base_tags %}
+
+{% block title %}ثبت نام{% endblock title %}
+
+{% block main %}
+	<form class="login100-form validate-form" method="post">
+			{% csrf_token %}
+			<!--header title-->
+			<span class="login100-form-title p-b-49 myfont">ثبت نام</span>
+			
+			<!--non-field errors-->
+			{% field_errors form.non_field_errors %}
+
+			<!--form fields-->
+			{% for field in form.visible_fields %}
+				<div class="wrap-input100 m-b-23">
+					<span class="label-input100 myfont">{{ field.label }}</span>
+					{{ field|add_class:"input100" }}
+					<span class="focus-input100"></span>
+				</div>
+				<!--field errors-->
+				{% field_errors field.errors %}
+			{% endfor %}
+			
+			<!--submit login button-->
+			<div class="container-login100-form-btn myfont">
+					<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn myfont">ثبت نام</button>
+					</div>
+			</div>
+			<!--sign in link-->
+			<div class="text-right p-t-31">
+				حساب دارید ؟ <a href="{% url 'login' %}" class="fs-18 myfont">ورود</a>
+			</div>
+	</form>
+
+{% endblock main %}

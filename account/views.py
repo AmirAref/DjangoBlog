@@ -6,7 +6,14 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from blog.models import Post
 from .models import User
-from account.forms import ProfileForm
+from .tokens import account_activation_token
+from account.forms import ProfileForm, SignUpForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_text
 
 # Create your views here.
 class PostList(AuthorsAccessMixin, ListView):
@@ -59,3 +66,45 @@ class Login(LoginView):
         else:
             # profile page
             return reverse_lazy('account:profile')
+
+class Register(CreateView):
+    form_class = SignUpForm
+    template_name = 'registration/register.html'
+    
+    def form_valid(self, form):
+        # save the user object
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
+        # email parameters
+        current_site = get_current_site(self.request)
+        mail_subject = 'فعالسازی اکانت'
+        message = render_to_string('registration/account_activation.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+            'token':account_activation_token.make_token(user),
+        })
+        to_email = form.cleaned_data.get('email')
+        email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+        )
+        # send the mail
+        email.send()
+        return HttpResponse('ایمیل فعالسازی اکانت ارسال شد. لطفا صندوق ایمیل خود را بررسی کنید')
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    # check user token
+    if user is not None and account_activation_token.check_token(user, token):
+        # activate the user
+        user.is_active = True
+        user.save()
+        return HttpResponse('اکانت شما با موفقیت فعال شد. اکنون میتوانید <a href="/login">وارد سایت شوید</a>')
+    else:
+        return HttpResponse('لینک فعالسازی نامعتبر یا منقضی شده است !')
