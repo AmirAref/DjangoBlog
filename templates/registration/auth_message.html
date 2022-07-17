@@ -1,0 +1,48 @@
+{% extends 'registration/base_auth.html' %}
+
+{% block title %}فعالسازی حساب{% endblock title %}
+
+{% block main %}
+
+    {% if step == 'sent' %}
+        <!--header title-->
+        <span class="login100-form-title p-b-49 myfont">ایمیل فعالسازی ارسال شد</span>
+
+        <!--message-->
+        <p class="fs-18 myfont">
+            ایمیل فعالسازی اکانت ارسال شد. لطفا صندوق ایمیل خود را بررسی کنید
+        </p>
+
+    {% elif step == 'activated' %}
+        <!--header title-->
+        <span class="login100-form-title p-b-49 myfont">حساب کاربری شما فعال شد</span>
+
+        <!--message-->
+        <p class="fs-18 myfont">
+            اکانت شما با موفقیت فعال شد. اکنون میتوانید از طریق لینک زیر وارد سایت شوید
+        </p>
+
+        <!--sign in link-->
+        <div class="text-center p-t-31">
+            <a href="{% url 'login' %}" class="fs-20 myfont">ورود به حساب کاربری</a>
+        </div>
+
+    {% elif step == 'failed' %}
+        <!--header title-->
+        <span class="login100-form-title p-b-49 myfont">عملیات با شکست مواجه شد</span>
+
+        <!--message-->
+        <p class="fs-18 myfont">
+            لینک فعالسازی اکانت نامعتبر بوده یا منقضی شده است!
+        </p>
+
+        <!--sign up link-->
+        <div class="text-center p-t-31">
+            <a href="{% url 'register' %}" class="fs-20 myfont">ثبت نام مجدد</a>
+        </div>
+    {% endif %}
+
+			
+	</form>
+
+{% endblock main %}

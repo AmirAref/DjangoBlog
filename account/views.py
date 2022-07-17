@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -91,7 +92,8 @@ class Register(CreateView):
         )
         # send the mail
         email.send()
-        return HttpResponse('ایمیل فعالسازی اکانت ارسال شد. لطفا صندوق ایمیل خود را بررسی کنید')
+        # show message
+        return render(self.request, 'registration/auth_message.html', context={'step':'sent'})
 
 
 def activate(request, uidb64, token):
@@ -105,6 +107,9 @@ def activate(request, uidb64, token):
         # activate the user
         user.is_active = True
         user.save()
-        return HttpResponse('اکانت شما با موفقیت فعال شد. اکنون میتوانید <a href="/login">وارد سایت شوید</a>')
+        # show message
+        return render(request, 'registration/auth_message.html', context={'step':'activated'})
     else:
-        return HttpResponse('لینک فعالسازی نامعتبر یا منقضی شده است !')
+        # invalid link
+        # show message
+        return render(request, 'registration/auth_message.html', context={'step':'failed'})
