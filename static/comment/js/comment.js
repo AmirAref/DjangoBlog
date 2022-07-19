@@ -715,9 +715,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleText = readMoreButton => {
         readMoreButton.previousElementSibling.classList.toggle('d-none');
         if (readMoreButton.previousElementSibling.classList.contains('d-none')) {
-            readMoreButton.innerHTML = gettext("read more ...");
+            readMoreButton.innerHTML = gettext("ادامه مطلب ...");
         } else {
-            readMoreButton.innerHTML = gettext("read less");
+            readMoreButton.innerHTML = gettext("خواندن کمتر");
         }
     };
 
