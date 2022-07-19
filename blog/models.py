@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.utils.html import format_html
 from account.models import User
 from extensions.utils import jalali_convertor
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 
 # create your managers here
 class PostManager(models.Manager):
@@ -54,6 +56,7 @@ class Post(models.Model):
     thumbnail = models.ImageField(upload_to='images', verbose_name='تصویر')
     is_special = models.BooleanField(default=False, verbose_name="مقاله ویژه")
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت انتشار')
+    comments = GenericRelation(Comment)
 
     class Meta:
         verbose_name = 'پست'

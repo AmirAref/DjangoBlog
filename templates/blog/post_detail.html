@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load comment_tags %}
 
 {% block titile %} - {{object.title}}{% endblock %}
 
@@ -43,6 +43,9 @@
                             <p>{{object.description|safe|linebreaks}}</p>
                         {% endif %}
                     </div>
+
+                    {% render_comments object request %}
+                    {% include_bootstrap %}
                 </div>
             </div>
         </article>
