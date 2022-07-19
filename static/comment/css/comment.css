@@ -202,3 +202,32 @@ input#search-input:focus::placeholder {
     border: 18px solid transparent;
     border-top-color: #f2f2f2;
 }
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.comment-head{
+    padding: 10px 12px;
+    border-bottom: 1px solid #E5E5E5;
+    overflow: hidden;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.js-comment-content {
+    padding: 10px 2px;
+}
+
+.comment-head img {
+    height: auto;
+    width: 2.1rem;
+    display: inline-block;
+    float: none;
+}
+
+.comment-name{
+    color: rgb(28, 24, 66);
+    display: inline-block;
+}

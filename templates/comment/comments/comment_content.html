@@ -1,7 +1,24 @@
 {% load comment_tags %}
+{% load gravatar %}
 {% load i18n %}
 
 <div id="{{ comment.urlhash }}" class="media-comment-bubble left-top js-updated-comment {% if comment.has_flagged_state %}flagged-comment {% endif %}{% block content_wrapper_cls %}{% if has_valid_profile %}col-9 col-md-10{% else %}co-11 mx-3{% endif %}{% endblock content_wrapper_cls %}" >
+    <div class="comment-head">
+        <img src="{% gravatar_url comment.user.email 150 %}" class="img-circle" alt="User Image">
+
+        <div class="comment-name">
+            <span class="{% block username_cls %}{% endblock username_cls %}"
+                title="{% if comment.user %}{% blocktrans %}view {{ username }} profile{% endblocktrans %}{% else %}{% trans 'comment by anonymous user' %}{% endif %}">
+                {% firstof comment.user.get_full_name username %}
+            </span>
+        </div>
+        
+        {% if comment.is_edited %}
+            <small class="font-italic" title="{% trans 'Edited' %}">{% blocktrans with edited_time=comment.edited|timesince %}Edited: {{ edited_time }} ago{% endblocktrans %}</small>
+        {% else %}
+            <small class="font-italic" title="{% trans 'Posted' %}">{% blocktrans with posted_time=comment.posted|timesince %}{{ posted_time }} ago{% endblocktrans %}</small>
+        {% endif %}
+    </div>
     {% block comment_content %}
         {% if render_markdown %}
             {% render_content comment markdown=True %}
@@ -12,24 +29,13 @@
     {% get_username_for_comment comment as username %}
     <div class="{% block footer_wrapper_cls %}mt-2 text-muted{% endblock footer_wrapper_cls %}">
         <small>
-            {% get_profile_url comment as profile_url %}
-            <{% if comment.user %}a{% else %}span{% endif %}
-                class="{% block username_cls %}{% endblock username_cls %}" {% if profile_url %}href="{{ profile_url }}"{% endif %}
-                title="{% if comment.user %}{% blocktrans %}view {{ username }} profile{% endblocktrans %}{% else %}{% trans 'comment by anonymous user' %}{% endif %}"
-            >
-                {% firstof comment.user.get_full_name username %}
-            </{% if comment.user %}a{% else %}span{% endif %}> |
-            {% if comment.is_edited %}
-                <span class="font-italic" title="{% trans 'Edited' %}">{% blocktrans with edited_time=comment.edited|timesince %}Edited: {{ edited_time }} ago{% endblocktrans %}</span>
-            {% else %}
-                <span class="font-italic" title="{% trans 'Posted' %}">{% blocktrans with posted_time=comment.posted|timesince %}{{ posted_time }} ago{% endblocktrans %}</span>
-            {% endif %}
+            
             {% can_delete_comment comment user as can_delete %}
             {% if comment.user == user %}
-                | {% include 'comment/comments/edit_icon.html' %}
+                {% include 'comment/comments/edit_icon.html' %}
                 {% include 'comment/comments/delete_icon.html' %}
             {% elif can_delete %}
-                | {% include 'comment/comments/delete_icon.html' %}
+                {% include 'comment/comments/delete_icon.html' %}
                 {% if comment.is_flagged %}
                     {% include 'comment/comments/reject_icon.html' %}
                     {% if comment.is_edited %}
@@ -42,7 +48,7 @@
             {% endif %}
             {% if comment.is_parent %}
                 {% get_replies_count comment user as reply_count %}
-                | <span class="js-reply-number {% block reply_count_cls %}text-dark{% endblock reply_count_cls %}">{{ reply_count }}</span>
+                <span class="js-reply-number {% block reply_count_cls %}text-dark{% endblock reply_count_cls %}">{{ reply_count }}</span>
                 <a class="js-reply-link {% block reply_link_cls %}btn btn-link ml-1{% endblock reply_link_cls %}" href="#">
                     {% blocktrans count reply_count=reply_count %} Reply{% plural %} Replies{% endblocktrans %}
                 </a>
