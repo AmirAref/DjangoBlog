@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_gravatar',
     'comment',
+    'star_ratings',
 ]
 
 MIDDLEWARE = [
@@ -148,9 +149,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = 'account.User'
 
+# email backend info
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST =  config('EMAIL_HOST')
 EMAIL_USE_TLS = True
 EMAIL_PORT =  config('EMAIL_PORT')
 EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =  config('EMAIL_HOST_PASSWORD')
+
+# star ratings app
+STAR_RATINGS_STAR_HEIGHT = 18
+# STAR_RATINGS_RANGE = 10
+# STAR_RATINGS_ANONYMOUS = True

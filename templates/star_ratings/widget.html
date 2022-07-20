@@ -1,0 +1,12 @@
+{% extends "star_ratings/widget_base.html" %}
+{% block rating_detail %}
+    {% if request.resolver_match.url_name == 'detail' %}
+        <span class="text-white">{{ percentage|floatformat }}% ({{rating.count}} رأی)</span>
+        {% comment %} <div class="star-ratings-rating-average text-white">
+            <span>میانگین امتیازات : {{rating.average|floatformat}}</span>
+        </div>
+        <div class="star-ratings-rating-count text-white">
+            <span>تعداد امتیازات : {{rating.count}}</span>
+        </div> {% endcomment %}
+    {% endif %}
+{% endblock rating_detail %}

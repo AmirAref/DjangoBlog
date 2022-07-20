@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load comment_tags %}
+{% load ratings %}
 
 {% block titile %} - {{object.title}}{% endblock %}
 
@@ -21,6 +22,7 @@
                                 {{object.jpublish}}
                             </span>
                         </div>
+                        <div class="mt-3">{% ratings object %}</div>
                     </div>
                 </div>
             </div>
