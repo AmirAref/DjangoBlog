@@ -11,6 +11,10 @@
                 title="{% if comment.user %}{% blocktrans %}view {{ username }} profile{% endblocktrans %}{% else %}{% trans 'comment by anonymous user' %}{% endif %}">
                 {% firstof comment.user.get_full_name username %}
             </span>
+            
+            {% if comment.content_object.author == comment.user %}
+                <span class="badge badge-primary fs-6">نویسنده</span>
+            {% endif %}
         </div>
         
         {% if comment.is_edited %}
