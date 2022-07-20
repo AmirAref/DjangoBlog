@@ -15,7 +15,13 @@ class ArticleDetail(DetailView):
     # display the detial page of any article (post) by slug
     def get_object(self) :
         slug = self.kwargs['slug']
-        return get_object_or_404(Post.objects.published(), slug=slug)
+        post = get_object_or_404(Post.objects.published(), slug=slug)
+        # save the ip address for this post
+        ip_address = self.request.user.ip_address
+        if not ip_address in post.hits.all():
+            post.hits.add(ip_address)
+        
+        return post
 
 class ArticlePreview(AuthorAccessMixin, DetailView):
     # display the detial page of any article (post) by slug

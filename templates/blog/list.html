@@ -41,10 +41,13 @@
                                 {{post.jpublish}}
                             </p>
                             <div>
+                                <span>دسته بندی : </span>
                                 {% for cat in post.category.active %}
                                     <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
                                 {% endfor %}
                             </div>
+
+                            <span class="fs-6">بازدیدها : {{post.hits.count}}</span>
                         </div>
                     {% endfor %}
                     <!-- Divider-->

@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Post, Category
+from .models import Post, Category, IPAddress
 from django.utils.translation import ngettext
 
 # Register your models here.
@@ -67,3 +67,4 @@ class PostAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(IPAddress)
