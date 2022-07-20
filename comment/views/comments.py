@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 
 from comment.models import Comment
 from comment.forms import CommentForm
@@ -42,6 +45,47 @@ class CreateComment(CanCreateMixin, CommentCreateMixin):
         )
         self.comment = self.perform_create(temp_comment, self.request)
         self.data = render_to_string(self.get_template_names(), self.get_context_data(), request=self.request)
+        
+        # get target users email
+        post = self.comment.content_object
+        post_url = "{}{}".format(get_current_site(self.request), reverse('blog:detail', kwargs={'slug':post.slug}) )
+
+        author_email = post.author.email
+        user_email = self.comment.user.email
+        parent_email = self.comment.parent.email if self.comment.parent else False
+        # check the same user
+        if author_email == user_email:
+            author_email = False
+            user_email = False
+        # check parent is the same
+        if parent_email in (author_email, user_email, ):
+            parent_email = False
+        
+        # send the emails
+        if author_email:
+            email = EmailMessage(
+                'دیدگاه جدید', #subject
+                "دیدگاه جدیدی برای پُست «{}» ثبت شده است.\nبرای مشاهده دیدگاه به لینک زیر بروید\n{}".format(post, post_url), # message
+                to=[author_email]
+            )
+            email.send()
+        
+        if user_email:
+            email = EmailMessage(
+                'دیدگاه دریافت شد', #subject
+                "دیدگاه شما برای پُست «{}» دریافت شد و به زودی به آن پاسخ می دهیم.".format(post), # message
+                to=[user_email]
+            )
+            email.send()
+        
+        if parent_email:
+            email = EmailMessage(
+                'پاسخ جدید', #subject
+                "پاسخ جدیدی برای دیدگاه شما در پُست «{}» ثبت شده است.\nبرای مشاهده پاسخ به لینک زیر بروید\n{}".format(post, post_url), # message
+                to=[parent_email]
+            )
+            email.send()
+        
         return UTF8JsonResponse(self.json())
 
     def form_invalid(self, form):
