@@ -5,7 +5,7 @@
 			<a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:category' cat.slug %}">{{cat.title}}</a>
 		{% if cat.children.active %}
 			<!--include the submenus-->
-			{% include 'blog/partial/category_children_loop.html' %}
+			{% include 'blog/partials/category_children_loop.html' %}
 		{% endif %}
 		</li>
 	{% endif %}
