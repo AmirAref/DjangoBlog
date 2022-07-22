@@ -1,0 +1,9 @@
+<div class="popular-posts">
+    <h4>پُست های پر بازدید ماه</h4>
+    <hr>
+    {% for p in popular_posts  %}
+        <div>
+            <a href="{% url 'blog:detail' p.slug %}">{{p.title}}</a>
+        </div>
+    {% endfor %}
+</div>

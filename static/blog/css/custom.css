@@ -1,6 +1,6 @@
 @import url(fonts.css);
 
-
+/*  right to left */
 body{
     direction: rtl !important;
     text-align: right !important;
@@ -88,4 +88,17 @@ body{
   font-weight: 400;
   margin-right: 8px;
   font-size: 10px;
+}
+
+/* popular posts */
+.popular-posts {
+  border: 2px solid #c1c1c1;
+  box-shadow: -5px 5px #c1c1c1;
+  border-radius: 5px;
+  padding: 15px;
+  width: 400px;
+  position: absolute;
+  left: -450px;
+  top: 0px;
+  overflow: auto;
 }

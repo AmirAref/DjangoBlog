@@ -60,7 +60,7 @@ class Post(models.Model):
     is_special = models.BooleanField(default=False, verbose_name="مقاله ویژه")
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت انتشار')
     comments = GenericRelation(Comment)
-    hits = models.ManyToManyField(IPAddress, blank=True, related_name='posts', verbose_name='بازدیدها')
+    hits = models.ManyToManyField(IPAddress, blank=True, through='PostHit', related_name='posts', verbose_name='بازدیدها')
 
     class Meta:
         verbose_name = 'پست'
@@ -93,3 +93,9 @@ class Post(models.Model):
 
     # change objects Manager
     objects = PostManager()
+
+
+class PostHit(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
