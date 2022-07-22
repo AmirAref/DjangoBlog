@@ -90,15 +90,18 @@ body{
   font-size: 10px;
 }
 
+aside{
+  width: 400px;
+  position: absolute;
+  left: -450px;
+  top: 0px;
+}
+
 /* popular posts */
 .popular-posts {
   border: 2px solid #c1c1c1;
   box-shadow: -5px 5px #c1c1c1;
   border-radius: 5px;
   padding: 15px;
-  width: 400px;
-  position: absolute;
-  left: -450px;
-  top: 0px;
-  overflow: auto;
+  margin-bottom: 15px;
 }

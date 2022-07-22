@@ -1,7 +1,7 @@
 <div class="popular-posts">
-    <h4>پُست های پر بازدید ماه</h4>
+    <h4>{{title}}</h4>
     <hr>
-    {% for p in popular_posts  %}
+    {% for p in posts  %}
         <div>
             <a href="{% url 'blog:detail' p.slug %}">{{p.title}}</a>
         </div>
