@@ -1,5 +1,5 @@
 from django import template
-from django.db.models import Count, Q
+from django.db.models import Count, Avg, Q
 from django.contrib.contenttypes.models import ContentType
 from datetime import datetime, timedelta
 
@@ -50,4 +50,18 @@ def hot_posts():
                 'comments', # add new 'count' field -> comments count
                 filter=Q(comments__posted__gt=last_month) and Q(comments__content_type_id=content_type_id), # filter only posts that their created view time greater than last month
             )).order_by('-count', '-publish')[:5] # sort 
+        }
+
+@register.inclusion_tag('blog/partials/side.html')
+def star_posts():
+    # return the posts of the last month sort by comments count
+    last_month = datetime.today() - timedelta(days=30)
+    content_type_id = ContentType.objects.get(app_label='blog', model='post').id
+    return {
+        'title' : "پُست های پر امتیاز ماه",
+        'posts' : Post.objects.published().annotate(
+            average=Avg(
+                'ratings__user_ratings__score', # add new 'average' field -> score average
+                filter=Q(ratings__user_ratings__created__gt=last_month) and Q(comments__content_type_id=content_type_id),
+            )).order_by('-average', '-publish')[:5] # sort by rating average
         }

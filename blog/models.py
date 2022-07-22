@@ -6,6 +6,7 @@ from account.models import User
 from extensions.utils import jalali_convertor
 from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
+from star_ratings.models import Rating
 
 # create your managers here
 class PostManager(models.Manager):
@@ -61,6 +62,7 @@ class Post(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت انتشار')
     comments = GenericRelation(Comment)
     hits = models.ManyToManyField(IPAddress, blank=True, through='PostHit', related_name='posts', verbose_name='بازدیدها')
+    ratings = GenericRelation(Rating)
 
     class Meta:
         verbose_name = 'پست'
