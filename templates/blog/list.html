@@ -55,6 +55,8 @@
 
                             <span class="fs-6">بازدیدها : {{post.hits.count}}</span>
                         </div>
+                    {% empty %}
+                        <p>محتوایی برای نمایش وجود ندارد !</p>
                     {% endfor %}
                     <!-- Divider-->
                     <hr class="my-4" />

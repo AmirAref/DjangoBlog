@@ -1,6 +1,8 @@
 from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+
 from account.mixins import AuthorAccessMixin
 from account.models import User
 from .models import Category, Post
@@ -58,4 +60,21 @@ class AuthorList(ListView):
         # add the author to the contex
         contex = super().get_context_data(**kwargs)
         contex['author'] = self.author
+        return contex
+
+
+class SearchList(ListView):
+    paginate_by = 6
+    template_name = 'blog/search_list.html'
+    
+    def get_queryset(self):
+        # get post that their title or description contains the query 
+        self.query = self.request.GET.get('q')
+        posts = Post.objects.published().filter(Q(title__icontains=self.query) | Q(description__icontains=self.query))
+        return posts
+    
+    def get_context_data(self, **kwargs):
+        # add the author to the contex
+        contex = super().get_context_data(**kwargs)
+        contex['query'] = self.query
         return contex

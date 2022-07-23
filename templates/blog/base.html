@@ -39,6 +39,16 @@
                     </ul>
                 </div>
             </div>
+            <form class="row ms-5" action="{% url 'blog:search' %}">
+                <div class="col">
+                    <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="جستجو" name="q">           
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success my-2 my-sm-0 px-3 py-2" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+              </form>
         </nav>
 
         {% block main %}
