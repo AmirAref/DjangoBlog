@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
 
 from account.mixins import AuthorAccessMixin
@@ -66,6 +67,14 @@ class AuthorList(ListView):
 class SearchList(ListView):
     paginate_by = 6
     template_name = 'blog/search_list.html'
+    
+    def dispatch(self, request, *args, **kwargs):
+        # check empty query field
+        query = request.GET.get('q')
+        if not query:
+            return redirect('blog:home')
+
+        return super().dispatch(request, *args, **kwargs)
     
     def get_queryset(self):
         # get post that their title or description contains the query 
