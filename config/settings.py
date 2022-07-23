@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_gravatar',
     'comment',
     'star_ratings',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
