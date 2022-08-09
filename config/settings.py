@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'comment',
     'star_ratings',
     'django.contrib.humanize',
+    'rest_framework',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [

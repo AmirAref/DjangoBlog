@@ -28,4 +28,5 @@ urlpatterns = [
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
     path('account/', include('account.urls')),
     path('comment/', include('comment.urls')),
+    path('api/', include('api.urls')),
 ]
