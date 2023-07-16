@@ -1,0 +1,28 @@
+version: "3.10"
+
+services:
+  app:
+    container_name: 'Blog-App'
+    build:
+      context: .
+      network: host
+    volumes:
+      - static:/volumes/static/
+      - media:/volumes/media/
+    expose:
+      - '8000'
+    
+  nginx:
+    container_name: 'Blog-Nginx'
+    build: './nginx'
+    ports:
+      - "80:80"
+    volumes:
+      - static:/volumes/static/
+      - media:/volumes/media/
+    depends_on:
+      - app
+    
+volumes:
+  static:
+  media:

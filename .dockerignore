@@ -1,0 +1,6 @@
+*.pyc
+media
+static
+.git
+db.*
+**/__pycache__
