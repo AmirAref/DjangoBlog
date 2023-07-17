@@ -1,20 +1,20 @@
-from urllib import request
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .mixins import AuthorsAccessMixin, FieldsMixin, FormValidMixin, AuthorAccessMixin, SuperUserMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, PasswordChangeView
-from blog.models import Post
+from blog.models import Post, Category
 from .models import User
 from .tokens import account_activation_token
 from account.forms import ProfileForm, SignUpForm
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
+from django.conf import settings
 
 # Create your views here.
 class PostList(AuthorsAccessMixin, ListView):
@@ -80,18 +80,22 @@ class Register(CreateView):
         # email parameters
         current_site = get_current_site(self.request)
         mail_subject = 'فعالسازی اکانت'
-        message = render_to_string('registration/account_activation.html', {
+        message = "لینک فعالسازی حساب شما ارسال شد."
+        from_email = settings.EMAIL_HOST_USER
+        html_message = render_to_string('registration/account_activation.html', {
             'user': user,
             'domain': current_site.domain,
             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
             'token':account_activation_token.make_token(user),
         })
         to_email = form.cleaned_data.get('email')
-        email = EmailMessage(
-                    mail_subject, message, to=[to_email]
+        send_mail(
+            subject=mail_subject,
+            from_email=from_email,
+            recipient_list=[to_email],
+            message=message,
+            html_message=html_message,
         )
-        # send the mail
-        email.send()
         # show message
         return render(self.request, 'registration/auth_message.html', context={'step':'sent'})
 
@@ -113,3 +117,23 @@ def activate(request, uidb64, token):
         # invalid link
         # show message
         return render(request, 'registration/auth_message.html', context={'step':'failed'})
+
+
+class CategoryList(SuperUserMixin, ListView):
+    template_name = 'registration/category-list.html'
+    model = Category
+    
+class CategoryCreate(SuperUserMixin, CreateView):
+    model = Category
+    fields = ['parent', 'title', 'slug', 'status', 'position']
+    template_name = 'registration/category-create-update.html'
+
+class CategoryUpdate(SuperUserMixin, UpdateView):
+    model = Category
+    fields = ['parent', 'title', 'slug', 'status', 'position']
+    template_name = 'registration/category-create-update.html'
+
+class CategoryDelete(SuperUserMixin, DeleteView):
+    success_url = reverse_lazy('account:category')
+    model = Category
+    template_name = 'registration/category_confirm_delete.html'

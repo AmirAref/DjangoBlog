@@ -1,6 +1,9 @@
+<div dir="rtl" style="font-size:20px;">
 {% autoescape off %}
-سلام {{ user.get_full_name }},
-لطفا برای فعالسازی اکانت خود بر لینک زیر کلیک کنید.
+سلام <b>{{ user.get_full_name }}</b>
 <br>
+لطفا برای فعالسازی اکانت خود بر لینک زیر کلیک کنید.
+<br><br>
 http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}
+</div>

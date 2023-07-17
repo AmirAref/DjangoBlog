@@ -1,0 +1,78 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}{% block title-meta %}
+لیست دسته بندی ها
+{% endblock title-meta %}{% endblock title %}
+
+{% block main %}
+<div class="row">
+    <div class="col-12">
+      {% if object_list %}
+        <div class="card">
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>نام دسته</th>
+                  <th>آدرس</th>
+                  <th>دسته مادر</th>
+                  <th>جایگاه</th>
+                  <th>وضعیت نمایش</th>
+                  
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for category in object_list  %}
+                      <tr>
+                        <td>
+                          <a href="{% url 'account:category-update' category.pk %}" >
+                            {{category.title}}
+                          </a>
+                          </td>
+                        <td>{{category.slug}}</td>
+                        <td>
+                          {% if category.parent %}
+                            {{ category.parent }}
+                          {% else %}
+                            ندارد
+                          {% endif %}
+                        </td>
+                        <td>{{category.position}}</td>
+                        <!-- category status -->
+                        <td>
+                          {% if category.status %}
+                            <i class="fas fa-check-circle fa-lg" style="color:green;"></i>
+                          {% else %}
+                            <i class="fas fa-times-circle fa-lg" style="color:red;"></i>
+                          {% endif %}
+                        </td>
+                        <!-- actions -->
+                        <td>
+                          <a class="nav-link " href="{% url 'account:category-update' category.pk %}">
+                            <i class="fa fa-edit nav-icon"></i>
+                          </a>
+                          <a class="nav-link " href="{% url 'account:category-delete' category.pk %}">
+                            <i class="fa fa-trash-alt nav-icon"></i>
+                          </a>
+
+
+                        </td>
+                      </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      {% endif %}
+      <div class="col-6">
+        <a class="btn btn-primary rounded-5 mx-auto" href={% url 'account:category-create' %}>دسته بندی جدید</a>
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+{% endblock main %}

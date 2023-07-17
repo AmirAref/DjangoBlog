@@ -63,10 +63,10 @@ class AuthorsAccessMixin:
         return redirect('account:profile')
 
 class SuperUserMixin:
-    def dispatch(self, request, pk, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         # only superusers allow access
         if request.user.is_superuser:
-            return super().dispatch(request, pk, *args, **kwargs)
+            return super().dispatch(request, *args, **kwargs)
         
         raise Http404('you can\'t access to this page !')
         

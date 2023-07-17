@@ -32,11 +32,19 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
+          <!--user profile-->
+          <li class="nav-item">
+            <a href="{% url 'account:profile' %}" class="nav-link {% activate request 'profile' %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>پروفایل</p>
+            </a>
+          </li>
+
           {% if user.is_superuser or user.is_author%}
           <!--articles navbar-->
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-newspaper"></i>
                 <p>
                   مقالات
                   <i class="right fas fa-angle-left"></i>
@@ -49,21 +57,27 @@
                     <p>لیست مقالات</p>
                   </a>
                 </li>
+                <!--add article-->
                 <li class="nav-item">
                   <a href="{% url 'account:post-create' %}" class="nav-link {% activate request 'post-create' %}">
                     <i class="fa fa-edit nav-icon"></i>
                     <p>افزودن مقاله</p>
                   </a>
                 </li>
+                {% if user.is_superuser %}
+                  <!-- manage categories -->
+                  <li class="nav-item">
+                    <a href="{% url 'account:category' %}" class="nav-link {% activate request 'category' %}">
+                      <i class="fa fa-th-list nav-icon"></i>
+                      <p>دسته بندی ها</p>
+                    </a>
+                  </li>
+                
+                {% endif %}
+                
               </ul>
             </li>
             {% endif %}
-          <li class="nav-item">
-            <a href="{% url 'account:profile' %}" class="nav-link {% activate request 'profile' %}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>پروفایل</p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

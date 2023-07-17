@@ -29,7 +29,7 @@ class Category(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان دسته‌بندی")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="آدرس دسته‌بندی")
     status = models.BooleanField(default=True, verbose_name="وضعیت نمایش")
-    position = models.IntegerField(unique=True, verbose_name="پوزیشن")
+    position = models.IntegerField(unique=True, verbose_name="جایگاه")
 
     class Meta:
         verbose_name = "دسته‌بندی"
@@ -41,6 +41,11 @@ class Category(models.Model):
 
     # change objects Manager
     objects = CategoryManager()
+    
+    
+    # redirect url after created a object of this model
+    def get_absolute_url(self):
+        return reverse('account:category')
 
 class Post(models.Model):
     STATUS_CHOICES = (

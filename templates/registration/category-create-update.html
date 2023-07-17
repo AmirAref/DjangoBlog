@@ -1,0 +1,61 @@
+{% extends 'registration/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}{% block title-meta %}
+	{% if request.resolver_match.url_name == 'category-create' %}
+		افزودن دسته بندی
+	{% else %}
+		ویرایش دسته بندی
+	{% endif %}
+{% endblock title-meta %}{% endblock title %}
+
+{% block main %}
+
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title mb-0 float-left">
+				{% if request.resolver_match.url_name == 'category-create' %}
+					افزودن دسته بندی
+				{% else %}
+					ویرایش دسته بندی
+				{% endif %}
+			</h3>
+		</div>
+
+			<!-- form start -->
+			<div class="card-body">
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+
+					<div class="row">
+						<div class="col-6">
+							{{form.title|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.slug|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.parent|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.position|as_crispy_field}}
+						</div>
+						<div class="col-6">
+							{{form.status|as_crispy_field}}
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-success">{% if request.resolver_match.url_name == 'category-create' %}افزودن دسته بندی{% else %}ویرایش دسته بندی{% endif %}</button>
+					<!--delete button-->
+					{% if request.resolver_match.kwargs.pk %}
+					  <a href="{% url 'account:category-delete' request.resolver_match.kwargs.pk %}" class="btn btn-danger">حذف</a>
+					{% endif %}
+
+				</form>
+			</div>
+
+	</div>
+</div>
+{% endblock main %}
