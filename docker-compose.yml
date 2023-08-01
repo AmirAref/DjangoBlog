@@ -9,8 +9,8 @@ services:
       context: .
       network: host
     volumes:
-      - static:/volumes/static/
-      - media:/volumes/media/
+      - static:/code/static/
+      - media:/code/media/
     expose:
       - '8000'
     

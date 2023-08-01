@@ -1,6 +1,6 @@
 *.pyc
 media
-static
+#static
 .git
 db.*
 **/__pycache__
