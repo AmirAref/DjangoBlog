@@ -25,30 +25,29 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light top-fixed">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="{% url 'blog:home' %}">وبلاگ من</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    منو
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0 menu">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home' %}">خانه</a></li>
-                        {% category_navbar %}
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'blog:home' %}">خانه</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'account:home' %}">پنل کاربری</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'login' %}">ورود</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'register' %}">ثبت نام</a></li>
+                        {% endif %}
                     </ul>
+                    <form class="d-flex" action="{% url 'blog:search' %}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="جستجو" name="q">
+                        <button class="btn btn-success my-2 my-sm-0 px-3 py-2" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
-            <form class="row ms-5" action="{% url 'blog:search' %}">
-                <div class="col">
-                    <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="جستجو" name="q">           
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-success my-2 my-sm-0 px-3 py-2" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </div>
-              </form>
         </nav>
 
         {% block main %}
