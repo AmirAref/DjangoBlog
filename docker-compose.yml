@@ -14,6 +14,9 @@ services:
     expose:
       - '8000'
     
+    depends_on:
+      - db
+    
   nginx:
     container_name: 'Blog-Nginx'
     build: './nginx'
@@ -24,7 +27,16 @@ services:
       - media:/volumes/media/
     depends_on:
       - app
+  
+  db:
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
     
 volumes:
   static:
   media:
+  postgres_data:
