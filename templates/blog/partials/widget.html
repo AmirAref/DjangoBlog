@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <div class="col-md-12">
+            <ul class="list-unstyle mb-0">
+                {% for post in posts %}
+                    <li><a href="{% url 'blog:detail' post.slug %}">{{post.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

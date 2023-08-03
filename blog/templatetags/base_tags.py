@@ -25,7 +25,7 @@ def field_errors(errors):
     return {'errors' : errors}
 
 
-@register.inclusion_tag('blog/partials/side.html')
+@register.inclusion_tag('blog/partials/widget.html')
 def popular_posts():
     # return the posts of the last month sort by views count
     last_month = datetime.today() - timedelta(days=30)
@@ -38,7 +38,7 @@ def popular_posts():
             )).order_by('-count', '-publish')[:5] # sort the posts by their views and then by the publish time
         }
 
-@register.inclusion_tag('blog/partials/side.html')
+@register.inclusion_tag('blog/partials/widget.html')
 def hot_posts():
     # return the posts of the last month sort by comments count
     last_month = datetime.today() - timedelta(days=30)
@@ -52,7 +52,7 @@ def hot_posts():
             )).order_by('-count', '-publish')[:5] # sort 
         }
 
-@register.inclusion_tag('blog/partials/side.html')
+@register.inclusion_tag('blog/partials/widget.html')
 def star_posts():
     # return the posts of the last month sort by comments count
     last_month = datetime.today() - timedelta(days=30)
@@ -62,6 +62,6 @@ def star_posts():
         'posts' : Post.objects.published().annotate(
             average=Avg(
                 'ratings__user_ratings__score', # add new 'average' field -> score average
-                filter=Q(ratings__user_ratings__created__gt=last_month) and Q(comments__content_type_id=content_type_id),
+                filter=Q(ratings__user_ratings__created__gt=last_month),
             )).order_by('-average', '-publish')[:5] # sort by rating average
         }

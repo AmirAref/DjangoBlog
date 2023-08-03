@@ -1,9 +1,1 @@
 {% extends 'blog/list.html' %}
-
-{% block previous_page_url %}
-    {% url 'blog:home' page_obj.previous_page_number %}
-{% endblock previous_page_url %}
-
-{% block next_page_url %}
-    {% url 'blog:home' page_obj.next_page_number %}
-{% endblock next_page_url %}

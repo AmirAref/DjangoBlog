@@ -1,4 +1,4 @@
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.shortcuts import redirect, render, get_object_or_404
@@ -13,6 +13,12 @@ from .models import Category, Post
 class PostList(ListView):
     queryset = Post.objects.published()
     paginate_by = 6
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.active()
+        return context
+    
 
 class ArticleDetail(DetailView):
     # display the detial page of any article (post) by slug
@@ -25,6 +31,11 @@ class ArticleDetail(DetailView):
             post.hits.add(ip_address)
         
         return post
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.active()
+        return context
 
 class ArticlePreview(AuthorAccessMixin, DetailView):
     # display the detial page of any article (post) by slug
@@ -44,9 +55,10 @@ class CategoryList(ListView):
         return self.category.posts.published()
     
     def get_context_data(self, **kwargs):
-        contex = super().get_context_data(**kwargs)
-        contex['category'] = self.category
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        context["categories"] = Category.objects.active()
+        return context
 
 class AuthorList(ListView):
     paginate_by = 6
@@ -59,9 +71,10 @@ class AuthorList(ListView):
     
     def get_context_data(self, **kwargs):
         # add the author to the contex
-        contex = super().get_context_data(**kwargs)
-        contex['author'] = self.author
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['author'] = self.author
+        context["categories"] = Category.objects.active()
+        return context
 
 
 class SearchList(ListView):
@@ -84,6 +97,7 @@ class SearchList(ListView):
     
     def get_context_data(self, **kwargs):
         # add the author to the contex
-        contex = super().get_context_data(**kwargs)
-        contex['query'] = self.query
-        return contex
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query
+        context["categories"] = Category.objects.active()
+        return context

@@ -1,9 +1,0 @@
-<div class="popular-posts">
-    <h4>{{title}}</h4>
-    <hr>
-    {% for p in posts  %}
-        <div>
-            <a href="{% url 'blog:detail' p.slug %}">{{p.title}}</a>
-        </div>
-    {% endfor %}
-</div>

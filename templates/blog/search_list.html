@@ -5,11 +5,3 @@
 {% block header %}
     <h3 class="alert alert-primary text-center">نتایج جستجو برای : {{query}}</h3>
 {% endblock header %}
-
-{% block previous_page_url %}
-    {% url 'blog:search' page_obj.previous_page_number %}?q={{query}}
-{% endblock previous_page_url %}
-
-{% block next_page_url %}
-    {% url 'blog:search' page_obj.next_page_number %}?q={{query}}
-{% endblock next_page_url %}
