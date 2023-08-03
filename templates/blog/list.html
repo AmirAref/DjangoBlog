@@ -3,6 +3,7 @@
 {% load base_tags %}
 {% load ratings %}
 {% load humanize %}
+{% load gravatar %}
 
 {% block main %}
 
@@ -67,7 +68,7 @@
                                 <div class="card mb-4">
                                     <a href="{% url 'blog:detail' post.slug %}"><img class="card-img-top" src="{{post.thumbnail.url}}" alt="..." /></a>
                                     <div class="card-body">
-                                        <div class="small text-muted">{{post.publish}}</div>
+                                        {% comment %} <div class="small text-muted">{{post.publish}}</div> {% endcomment %}
                                         <h2 class="card-title h4">
                                                 {{post.title}}
                                             {% if post.is_special %}
@@ -77,6 +78,26 @@
                                         <p class="card-text">{{post.description|striptags|truncatewords:20}}</p>
                                         <a class="btn btn-primary" href="{% url 'blog:detail' post.slug %}">خواندن بیشتر ←</a>
                                         
+                                        <!-- post meta-->
+                                        <div class="wrapfooter mt-3">
+                                            <span class="meta-footer-thumb">
+                                                <a href="{% url 'blog:author' post.author.username %}">
+                                                    <img alt=""
+                                                         src="{% gravatar_url post.author.email 150 %}"
+                                                         class="avatar avatar-40 photo jetpack-lazy-image jetpack-lazy-image--handled"
+                                                         data-lazy-loaded="1"
+                                                         loading="eager"
+                                                         width="40"
+                                                         height="40">
+                                            </span>
+                                            <span class="author-meta">
+                                                <span class="post-name">
+                                                    <a href="{% url 'blog:author' post.author.username %}">{{post.author.get_full_name}}</a></span><br>
+                                                </span>
+                                                <!-- post date -->
+                                                <span class="post-date">{{post.publish}}</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 

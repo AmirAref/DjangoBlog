@@ -105,3 +105,36 @@ aside{
   padding: 15px;
   margin-bottom: 15px;
 }
+
+.wrapfooter {
+	font-size: 13px;
+	display: block;
+}
+
+.author-thumb, .meta-footer-thumb img {
+	width: 40px;
+	height: 40px;
+	float: right;
+	margin-left: 13px;
+	border-radius: 100%;
+}
+
+.author-meta {
+	flex: 1 1 auto;
+	white-space: nowrap !important;
+	text-overflow: ellipsis !important;
+	overflow: hidden !important;
+}
+
+span.post-date, span.post-read, span.readingtime {
+	color: rgba(0,0,0,.54);
+}
+
+span.post-name, span.post-date, span.author-meta {
+	display: inline-block;
+}
+
+.wrapfooter a{
+  color:black;
+  text-decoration: none;
+}
