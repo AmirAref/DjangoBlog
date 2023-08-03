@@ -23,7 +23,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - static:/volumes/static/
+      - static:/volumes/staticfiles/
       - media:/volumes/media/
     depends_on:
       - app
