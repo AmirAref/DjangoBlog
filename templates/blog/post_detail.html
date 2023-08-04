@@ -8,7 +8,7 @@
 
 {% block main %}
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{{object.thumbnail.url}}')">
+        {% comment %} <header class="masthead" style="background-image: url('{{object.thumbnail.url}}')">
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -37,11 +37,6 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7 text-justify form-floating" style="min-height:350px;">
-                        <aside>
-                            {% popular_posts %}
-                            {% star_posts %}
-                            {% hot_posts %}
-                        </aside>
                         <!--check special posts-->
                         {% if object.is_special %}
                             <!--check user premissions-->
@@ -56,11 +51,140 @@
                         {% endif %}
                     </div>
 
+
+                <!-- Side widgets-->
+
                     <div class="col-md-12 col-lg-8 col-xl-7">
                         {% render_comments object request %}
                         {% include_bootstrap %}
                     </div>
                 </div>
             </div>
-        </article>
+        </article> {% endcomment %}
+
+
+        <!-- Page content-->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">{{post.title}}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">منتشر شده در {{post.publish|naturaltime}} توسط {{post.author.get_full_name}}</div>
+                            <!-- Post categories-->
+                            {% for category in post.category.active %}
+                                <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'blog:category' category.slug %}">{{category.title}}</a>
+                            {% endfor %}
+                            
+
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{post.thumbnail.url}}" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <!--check special posts-->
+                            {% if post.is_special %}
+                                <!--check user premissions-->
+                                {% if user.is_authenticated and user.is_special_user or post.author == user or user.is_superuser %}
+                                    <p>{{post.description|safe|linebreaks}}</p>
+                                {% else %}
+                                    <p>{{post.description|striptags|truncatewords:30}}</p>
+                                    <p class="alert alert-warning">این یک محتوای ویژه است و برای مشاهده آن باید <a href="#">اشتراک ویژه</a> تهیه کنید</p>
+                                {% endif %}
+                            {% else %}
+                                <p>{{post.description|safe|linebreaks}}</p>
+                            {% endif %}
+                        </section>
+
+                        <!-- ratings & views -->
+                        <div class="text-muted fst-italic mb-2">بازدید ها : {{post.hits.count}}</div>
+                        <div class"mb-2">{% ratings post %}</div>
+                    </article>
+                    <!-- Comments section-->
+
+                    <div class="col-md-12 col-lg-8 col-xl-7">
+                        {% render_comments object request %}
+                        {% include_bootstrap %}
+                    </div>
+                    {% comment %} <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                    <!-- Parent comment-->
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                        <!-- Child comment 1-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                            </div>
+                                        </div>
+                                        <!-- Child comment 2-->
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">Commenter Name</div>
+                                                When you put money directly to a problem, it makes a good headline.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single comment-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section> {% endcomment %}
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">جستجو</div>
+                        <div class="card-body">
+                            <form class="input-group" action="{% url 'blog:search' %}">
+                                <input name="q" class="form-control" type="text" placeholder="عبارت را برای جستجو وارد کنید..." aria-label="عبارت را برای جستجو وارد کنید..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="submit">جستجو</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">دسته بندی ها</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="list-inline mb-0">
+                                        {% for category in categories %}
+                                            <li class="list-inline-item"><a href="{% url 'blog:category' category.slug %}">{{category.title}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hot Posts widget-->
+                    {% popular_posts %}
+                    {% star_posts %}
+                    {% hot_posts %}
+
+                </div>
+            </div>
+        </div>
 {% endblock %}
