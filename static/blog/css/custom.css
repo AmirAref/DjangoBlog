@@ -138,3 +138,7 @@ span.post-name, span.post-date, span.author-meta {
   color:black;
   text-decoration: none;
 }
+
+.card-body a{
+  text-decoration: none;
+}
