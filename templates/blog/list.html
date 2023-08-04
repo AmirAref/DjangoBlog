@@ -22,39 +22,6 @@
         </header>
 
         <!-- Main Content-->
-        {% comment %} 
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7 form-floating">
-                    {% block header %}{% endblock header %}
-                    <!-- Post preview-->
-                    {% for post in object_list %}
-                        <div class="post-preview">
-                            <a href="{% url 'blog:detail' post.slug %}">
-                                <h2 class="post-title">
-                                        {{post.title}}
-                                    {% if post.is_special %}
-                                        <span class="badge badge-danger fs-5">ویژه</span>
-                                    {% endif %}
-                                </h2>
-                                <div class="mt-3">{% ratings post %}</div>
-                                <h3 class="post-subtitle">{{post.description|striptags|truncatewords:20 }}</h3>
-                            </a>
-                            <p class="post-meta">
-                                نوشته شده توسط : <a href="{% url 'blog:author' post.author.username %}">{{post.author.get_full_name}}</a> در
-                                {{post.publish|naturaltime}}
-                            </p>
-                            <div>
-                                <span>دسته بندی : </span>
-                                {% for cat in post.category.active %}
-                                    <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
-                                {% endfor %}
-                            </div>
-
-        <span class="fs-6">بازدیدها : {{post.hits.count}}</span>
-        {% endcomment %}
-
-        <!-- Page content-->
         <div class="container">
             <div class="row">
                 {% block header %}{% endblock header %}
@@ -68,7 +35,7 @@
                                 <div class="card mb-4">
                                     <a href="{% url 'blog:detail' post.slug %}"><img class="card-img-top" src="{{post.thumbnail.url}}" alt="..." /></a>
                                     <div class="card-body">
-                                        {% comment %} <div class="small text-muted">{{post.publish}}</div> {% endcomment %}
+                                        <div class="small text-muted fst-italic">بازدید ها : {{post.hits.count}}</div>
                                         <h2 class="card-title h4">
                                                 {{post.title}}
                                             {% if post.is_special %}
