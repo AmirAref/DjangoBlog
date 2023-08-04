@@ -22,6 +22,8 @@ class PostList(ListView):
 
 class ArticleDetail(DetailView):
     # display the detial page of any article (post) by slug
+    context_object_name = 'post'
+    
     def get_object(self) :
         slug = self.kwargs['slug']
         post = get_object_or_404(Post.objects.published(), slug=slug)
