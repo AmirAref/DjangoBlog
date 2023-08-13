@@ -110,7 +110,7 @@
                         <div class="card-header">جستجو</div>
                         <div class="card-body">
                             <form class="input-group" action="{% url 'blog:search' %}">
-                                <input name="q" class="form-control" type="text" placeholder="عبارت را برای جستجو وارد کنید..." aria-label="عبارت را برای جستجو وارد کنید..." aria-describedby="button-search" />
+                                <input name="q" class="form-control" type="text" placeholder="عبارت را برای جستجو وارد کنید..." aria-label="عبارت را برای جستجو وارد کنید..." aria-describedby="button-search" required/>
                                 <button class="btn btn-primary" id="button-search" type="submit">جستجو</button>
                             </form>
                         </div>
