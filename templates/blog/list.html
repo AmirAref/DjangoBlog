@@ -116,6 +116,7 @@
                         </div>
                     </div>
                     <!-- Categories widget-->
+                    {% if categories %}
                     <div class="card mb-4">
                         <div class="card-header">دسته بندی ها</div>
                         <div class="card-body">
@@ -130,6 +131,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     <!-- Hot Posts widget-->
                     {% popular_posts %}
                     {% star_posts %}
