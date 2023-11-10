@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 asgiref = "==3.5.2"
 distlib = "==0.3.4"
-django = "==3.2.20"
+django = "==3.2.23"
 django-braces = "==1.15.0"
 django-crispy-forms = "==1.14.0"
 django-filter = "==22.1"
