@@ -29,7 +29,7 @@ swapper = "==1.3.0"
 virtualenv = "==20.15.0"
 virtualenv-clone = "==0.5.7"
 virtualenvwrapper = "==4.8.4"
-gunicorn = "==20.1.0"
+gunicorn = "==22.0.0"
 psycopg2-binary = "==2.9.3"
 
 [dev-packages]
