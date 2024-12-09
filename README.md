@@ -80,6 +80,15 @@ docker-compose up -d --build
 </div>
 
 
+## Screenshots :
+to see all the screenshots, see [here](./docs/screenshots/).  
+
+![](./docs/screenshots/articles-list-home.png)
+![](./docs/screenshots/article-detail.png)
+![](./docs/screenshots/articles-list-panel.png)
+
+
+
 
 	
 
